@@ -53,6 +53,10 @@ export default function HunterProtocolPage() {
 
     const weakTopics = useMemo(() => getWeakTopics(progress.attempts, 3), [progress.attempts]);
     const topicStats = useMemo(() => getTopicStats(progress.attempts), [progress.attempts]);
+    const levelOptions = useMemo(
+        () => Array.from({ length: maxLevel }, (_, index) => getHunterByLevel(index + 1)).filter(Boolean),
+        [maxLevel],
+    );
 
     const hunterLine = useMemo(() => {
         if (!hunter) {
@@ -183,6 +187,23 @@ export default function HunterProtocolPage() {
         setPlayerHealth(MAX_BATTLE_POINTS);
     };
 
+    const handleLevelChange = (event) => {
+        const requestedLevel = Number(event.target.value);
+
+        if (!Number.isInteger(requestedLevel) || requestedLevel === level) {
+            return;
+        }
+
+        setLevel(requestedLevel);
+        setRoundQuestions([]);
+        setQuestionIndex(0);
+        setSelectedOption(null);
+        setFeedback(null);
+        setHunterPower(MAX_BATTLE_POINTS);
+        setPlayerHealth(MAX_BATTLE_POINTS);
+        setPhase("intro");
+    };
+
     const hunterMeterHeight = `${(hunterPower / MAX_BATTLE_POINTS) * 100}%`;
     const playerMeterHeight = `${(playerHealth / MAX_BATTLE_POINTS) * 100}%`;
 
@@ -226,29 +247,43 @@ export default function HunterProtocolPage() {
         <div className="hunter-page">
             <header className="hunter-header">
                 <div className="hunter-header-main">
-                    <p className="section-kicker">Hunter Protocol</p>
-                    <h1>Level {hunter.level}: {hunter.name}</h1>
-                    <p>{hunter.title}</p>
-                    <div className="hunter-header-meta" aria-label="Battle log summary">
-                        <div className="hunter-stat-chip">
-                            <span>Attempts</span>
-                            <strong>{progress.attempts.length}</strong>
+                    <div className="hunter-title-row">
+                        <div className="hunter-title-block">
+                            <p className="section-kicker">Hunter Protocol</p>
+                            <h1>Level {hunter.level}: {hunter.name}</h1>
+                            <p>{hunter.title}</p>
                         </div>
-                        <div className="hunter-stat-chip">
-                            <span>Cleared</span>
-                            <strong>{progress.completedLevels}</strong>
-                        </div>
-                        <div className="hunter-stat-chip wide">
-                            <span>Weak Topics</span>
-                            <strong>
-                                {weakTopics.length > 0
-                                    ? weakTopics.map((topic) => formatTopicLabel(topic)).join(", ")
-                                    : "No weakness data yet"}
-                            </strong>
+                        <div className="hunter-header-meta" aria-label="Battle log summary">
+                            <div className="hunter-stat-chip">
+                                <span>Attempts</span>
+                                <strong>{progress.attempts.length}</strong>
+                            </div>
+                            <div className="hunter-stat-chip">
+                                <span>Cleared</span>
+                                <strong>{progress.completedLevels}</strong>
+                            </div>
+                            <div className="hunter-stat-chip">
+                                <span>Weak Topics</span>
+                                <strong>
+                                    {weakTopics.length > 0
+                                        ? weakTopics.map((topic) => formatTopicLabel(topic)).join(", ")
+                                        : "None"}
+                                </strong>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="hunter-header-actions">
+                    <label className="level-picker" htmlFor="hunter-level-select">
+                        <span>Level</span>
+                        <select id="hunter-level-select" value={level} onChange={handleLevelChange}>
+                            {levelOptions.map((item) => (
+                                <option key={item.id} value={item.level}>
+                                    L{item.level} - {item.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
                     <Link to="/" className="secondary-btn">Landing</Link>
                     <Link to="/questions" className="secondary-btn">Simulation</Link>
                 </div>
@@ -262,102 +297,126 @@ export default function HunterProtocolPage() {
                             <div className="arena-bg arena-bg-right" aria-hidden="true" />
 
                             <section className={`arena-side hunter ${phase === "feedback" && feedback?.isCorrect ? "damage-flash" : ""}`}>
-                                <div className="arena-side-shell">
-                                <div className="combat-meter hunter-meter" aria-label="Hunter power">
-                                    <div className="combat-meter-track">
-                                        <div className="combat-meter-fill" style={{ height: hunterMeterHeight }} />
-                                    </div>
-                                    <div className="combat-meter-meta">
-                                        <strong>{hunterPower}</strong>
-                                        <span>Hunter</span>
+                                <div className="hunter-bubble-wrapper">
+                                    <div className="arena-prompt hunter-dialogue-bubble">
+                                        <span>{hunter.name} asks:</span>
+                                        <p>{hunterLine}</p>
                                     </div>
                                 </div>
 
-                                {activeHunterPortrait ? (
-                                    <img
-                                        src={activeHunterPortrait}
-                                        alt={hunter.name}
-                                        className="arena-character"
-                                    />
-                                ) : (
-                                    <div className="showdown-fallback">{hunter.name}</div>
-                                )}
+                                <div className="arena-side-shell">
+                                    <div className="combat-meter hunter-meter" aria-label="Hunter power">
+                                        <div className="combat-meter-track">
+                                            <div className="combat-meter-fill" style={{ height: hunterMeterHeight }} />
+                                        </div>
+                                        <div className="combat-meter-meta">
+                                            <strong>{hunterPower}</strong>
+                                            <span>Hunter</span>
+                                        </div>
+                                    </div>
+
+                                    {activeHunterPortrait ? (
+                                        <img
+                                            src={activeHunterPortrait}
+                                            alt={hunter.name}
+                                            className="arena-character"
+                                        />
+                                    ) : (
+                                        <div className="showdown-fallback">{hunter.name}</div>
+                                    )}
                                 </div>
                             </section>
 
                             <section className="arena-center" aria-label="Question and battle cards">
                                 <p className="showdown-kicker">Choose the best card to stop the hacker's attack</p>
 
-                                <div className="arena-prompt hunter-dialogue-bubble">
-                                    <span>{hunter.name} asks:</span>
-                                    <p>{hunterLine}</p>
-                                </div>
-
-                                {phase === "intro" ? (
-                                    <div className="hunter-phase-block">
-                                        <button type="button" className="primary-btn" onClick={handleStartRound}>
-                                            Begin Interrogation
-                                        </button>
-                                    </div>
-                                ) : null}
-
-                                {(phase === "question" || phase === "feedback") && currentQuestion ? (
-                                    <div className="arena-answer-bubble" aria-label="Player answer cards">
-                                        <span>You answer:</span>
-                                        <p className="hunter-progress">Round {questionIndex + 1} / {roundQuestions.length}</p>
-                                        <p className="hunter-topic-chip">Topic: {formatTopicLabel(currentQuestion.topic)} | Difficulty: {currentQuestion.difficulty}</p>
-
-                                        <div className="battle-cards-grid">
-                                            {currentQuestion.options.map((option, index) => (
-                                                <button
-                                                    type="button"
-                                                    key={option}
-                                                    onClick={() => setSelectedOption(index)}
-                                                    disabled={phase === "feedback"}
-                                                    className={getOptionClassName(index)}
-                                                >
-                                                    <span className="battle-card-id">{index + 1}</span>
-                                                    <p>{option}</p>
-                                                </button>
-                                            ))}
-                                        </div>
-
-                                        {phase === "question" ? (
-                                            <div className="hunter-actions">
-                                                <button
-                                                    type="button"
-                                                    className="primary-btn"
-                                                    onClick={handleSubmitAnswer}
-                                                    disabled={selectedOption === null}
-                                                >
-                                                    Lock Card
-                                                </button>
-                                            </div>
-                                        ) : null}
-
-                                        {phase === "feedback" && feedback ? (
-                                            <div className="arena-feedback-line">
-                                                <p className={feedback.isCorrect ? "success-text" : "error-text"}>
-                                                    {feedback.isCorrect ? `${hunter.name} lost power.` : "You lost health."}
+                                <div className="arena-conversation-rail">
+                                    <div className="arena-conversation-bottom">
+                                        {phase === "intro" ? (
+                                            <div className="arena-answer-bubble" aria-label="Begin interrogation">
+                                                <span>Your move:</span>
+                                                <p className="hunter-dialogue">
+                                                    Step into the protocol when you are ready.
                                                 </p>
-                                                <p>{feedback.question.explanation}</p>
-                                                <button type="button" className="primary-btn" onClick={handleAdvance}>
-                                                    Next Exchange
-                                                </button>
+                                                <div className="hunter-actions">
+                                                    <button
+                                                        type="button"
+                                                        className="primary-btn"
+                                                        onClick={handleStartRound}
+                                                    >
+                                                        Begin Interrogation
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ) : null}
+
+                                        {(phase === "question" || phase === "feedback") && currentQuestion ? (
+                                            <div className="arena-answer-bubble" aria-label="Player answer cards">
+                                                <span>You answer:</span>
+                                                <p className="hunter-progress">Round {questionIndex + 1} / {roundQuestions.length}</p>
+                                                <p className="hunter-topic-chip">
+                                                    Topic: {formatTopicLabel(currentQuestion.topic)} | Difficulty: {currentQuestion.difficulty}
+                                                </p>
+
+                                                <div className="battle-cards-grid">
+                                                    {currentQuestion.options.map((option, index) => (
+                                                        <button
+                                                            type="button"
+                                                            key={option}
+                                                            onClick={() => setSelectedOption(index)}
+                                                            disabled={phase === "feedback"}
+                                                            className={getOptionClassName(index)}
+                                                        >
+                                                            <span className="battle-card-id">{index + 1}</span>
+                                                            <p>{option}</p>
+                                                        </button>
+                                                    ))}
+                                                </div>
+
+                                                {phase === "question" ? (
+                                                    <div className="hunter-actions">
+                                                        <button
+                                                            type="button"
+                                                            className="primary-btn"
+                                                            onClick={handleSubmitAnswer}
+                                                            disabled={selectedOption === null}
+                                                        >
+                                                            Lock Card
+                                                        </button>
+                                                    </div>
+                                                ) : null}
+
+                                                {phase === "feedback" && feedback ? (
+                                                    <div className="arena-feedback-line">
+                                                        <p className={feedback.isCorrect ? "success-text" : "error-text"}>
+                                                            {feedback.isCorrect ? `${hunter.name} lost power.` : "You lost health."}
+                                                        </p>
+                                                        <p>{feedback.question.explanation}</p>
+                                                        <button type="button" className="primary-btn" onClick={handleAdvance}>
+                                                            Next Exchange
+                                                        </button>
+                                                    </div>
+                                                ) : null}
+                                            </div>
+                                        ) : null}
+
+                                        {phase === "question" && !currentQuestion ? (
+                                            <div className="arena-answer-bubble" aria-label="Reload round">
+                                                <span>Sync issue</span>
+                                                <p>The round did not load correctly. Start the hunter round again.</p>
+                                                <div className="hunter-actions">
+                                                    <button
+                                                        type="button"
+                                                        className="primary-btn"
+                                                        onClick={handleStartRound}
+                                                    >
+                                                        Reload Round
+                                                    </button>
+                                                </div>
                                             </div>
                                         ) : null}
                                     </div>
-                                ) : null}
-
-                                {phase === "question" && !currentQuestion ? (
-                                    <div className="hunter-phase-block">
-                                        <h2>Question Sync Recovered</h2>
-                                        <p>The round did not load correctly. Start the hunter round again.</p>
-                                        <button type="button" className="primary-btn" onClick={handleStartRound}>
-                                            Reload Round
-                                        </button>
-                                    </div>
-                                ) : null}
+                                </div>
                             </section>
 
                             <section className={`arena-side player ${phase === "feedback" && feedback && !feedback.isCorrect ? "damage-flash" : ""}`}>
