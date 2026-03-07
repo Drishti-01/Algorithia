@@ -56,14 +56,14 @@ export default function QuestionsPage() {
     };
 
     const categories = [
-        { id: "array", name: "Array District", icon:"⬛" , questionCategory: "array" },
-        { id: "linkedbridge", name: "Linked Bridge", icon: "⚖", questionCategory: "linkedlist" },
-        { id: "stack", name: "Stack Tower", icon: "🗼", questionCategory: "stack" },
-        { id: "queue", name: "Queue Factory", icon: "🏭", questionCategory: "queue" },
-        { id: "trees", name: "Tree Gardens", icon:"🌳", questionCategory: null },
-        { id: "graphs", name: "Graph Nexus", icon: "🕸", questionCategory: null },
-        { id: "hashmaps", name: "Hash Bazaar", icon: "🗺", questionCategory: null },
-        { id: "heaps", name: "Heap Citadel", icon: "🏰", questionCategory: null },
+        { id: "array", name: "Array District", icon: "", questionCategory: "array" },
+        { id: "linkedbridge", name: "Linked Bridge", icon: "", questionCategory: "linkedlist" },
+        { id: "stack", name: "Stack Tower", icon: "", questionCategory: "stack" },
+        { id: "queue", name: "Queue Factory", icon: "", questionCategory: "queue" },
+        { id: "trees", name: "Tree Gardens", icon: "", questionCategory: null },
+        { id: "graphs", name: "Graph Nexus", icon: "", questionCategory: null },
+        { id: "hashmaps", name: "Hash Bazaar", icon: "", questionCategory: null },
+        { id: "heaps", name: "Heap Citadel", icon: "", questionCategory: null },
     ];
 
     const questionDistricts = [
@@ -90,7 +90,6 @@ export default function QuestionsPage() {
         <div className="questions-page dq-page">
             <div className="dq-vignette" aria-hidden="true" />
             <div className="dq-particles" aria-hidden="true" />
-            <div className="dq-grain" aria-hidden="true" />
 
             <div className="dq-content-shell">
                 <header className="questions-header dq-header">
@@ -112,7 +111,7 @@ export default function QuestionsPage() {
 
                 <div className="filter-bar dq-filter-bar">
                     <button
-                        className={selectedCategory === "all" ? "filter-btn active" : "filter-btn"}
+                        className={selectedCategory === "all" ? "filter-btn all-districts-btn active" : "filter-btn all-districts-btn"}
                         onClick={() => setSelectedCategory("all")}
                     >
                         All Districts
@@ -123,7 +122,7 @@ export default function QuestionsPage() {
                             className={selectedCategory === cat.id ? "filter-btn active" : "filter-btn"}
                             onClick={() => setSelectedCategory(cat.id)}
                         >
-                            {cat.icon} {cat.name}
+                            {cat.icon ? `${cat.icon} ` : ""}{cat.name}
                         </button>
                     ))}
                 </div>
@@ -152,7 +151,7 @@ export default function QuestionsPage() {
                                                 <span className="level-name">{levelInfo.name}</span>
                                                 <span className="level-count">({questions.length} challenges)</span>
                                             </div>
-                                            <span className="toggle-arrow">{isExpanded ? "v" : ">"}</span>
+                                            <span className="toggle-arrow">{isExpanded ? "▼" : "▶"}</span>
                                         </button>
 
                                         {isExpanded && (

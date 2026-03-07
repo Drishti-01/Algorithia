@@ -165,8 +165,8 @@ function HunterShowcase({ hunter, index, onActivate, activeIndex }) {
   const [hasEntered, setHasEntered] = useState(false);
 
   const isInView = useInView(blockRef, {
-    amount: 0.2,
-    margin: "-300px 0px -300px 0px",
+    amount: 0.12,
+    margin: "0px 0px -20% 0px",
   });
 
   useEffect(() => {
@@ -188,7 +188,8 @@ function HunterShowcase({ hunter, index, onActivate, activeIndex }) {
   const particles = useMemo(() => buildAtmosphereParticles(hunter.name), [hunter.name]);
 
   const isPast = activeIndex > index;
-  const shouldReveal = isInView || hasEntered;
+  const isActive = activeIndex === index;
+  const shouldReveal = isInView || hasEntered || isActive;
   const chapterLabel = `Hunter Protocol ${String(index + 1).padStart(2, "0")}`;
 
   return (
