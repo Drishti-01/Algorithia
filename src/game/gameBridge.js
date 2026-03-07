@@ -1,0 +1,15 @@
+class GameBridge extends EventTarget {
+    emit(type, detail = {}) {
+        this.dispatchEvent(new CustomEvent(type, { detail }));
+    }
+
+    on(type, handler) {
+        const wrapped = (event) => handler(event.detail);
+        this.addEventListener(type, wrapped);
+        return () => {
+            this.removeEventListener(type, wrapped);
+        };
+    }
+}
+
+export const gameBridge = new GameBridge();
