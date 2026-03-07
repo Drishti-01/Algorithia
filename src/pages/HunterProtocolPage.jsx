@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import vexaraImage from "../assets/hunters/vexara.png";
 import kaelImage from "../assets/hunters/kael.png";
 import ironrailImage from "../assets/hunters/ironrail.png";
+import playerImage from "../assets/hunters/Player.png";
 import {
     buildHunterQuestionSet,
     getHunterByLevel,
@@ -421,7 +422,11 @@ export default function HunterProtocolPage() {
 
                             <section className={`arena-side player ${phase === "feedback" && feedback && !feedback.isCorrect ? "damage-flash" : ""}`}>
                                 <div className="arena-side-shell player-side-shell">
-                                <div className="player-silhouette" aria-hidden="true" />
+                                <img
+                                    src={playerImage}
+                                    alt="Player character"
+                                    className="arena-character player-character"
+                                />
                                 <div className="combat-meter player-meter" aria-label="Player health">
                                     <div className="combat-meter-track">
                                         <div className="combat-meter-fill" style={{ height: playerMeterHeight }} />
