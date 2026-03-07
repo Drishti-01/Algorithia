@@ -1,0 +1,22 @@
+{
+  "name": "algorithia-backend",
+  "version": "2.0.0",
+  "description": "Enhanced AI Backend for ALGorithia with Level System",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "ai",
+    "education",
+    "algorithms"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.22.1"
+  }
+}

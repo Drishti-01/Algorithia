@@ -107,6 +107,9 @@ function HunterProtocolSection() {
           Scroll to summon each legend from the dark. Every chapter reveals a
           battlefield archetype in cinematic sequence.
         </p>
+        <div className="hero-actions">
+          <Link to="/hunter-protocol" className="gold-btn">Start Hunter Protocol</Link>
+        </div>
       </motion.div>
 
       <div className="hunter-wrapper">
