@@ -1228,17 +1228,18 @@ button:disabled,
     min-height: 100vh;
     padding: 0;
     background:
-        radial-gradient(circle at 12% 38%, rgba(239, 68, 68, 0.2), transparent 36%),
-        radial-gradient(circle at 86% 34%, rgba(59, 130, 246, 0.2), transparent 34%),
-        linear-gradient(90deg, rgba(39, 12, 12, 0.95) 0%, rgba(12, 18, 36, 0.94) 100%);
+        linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.4)),
+        url("./assets/hunters/bg.png") center / cover no-repeat fixed;
 }
 
 .hunter-header {
     width: 100%;
     margin: 0;
-    border: 1px solid var(--line);
+    border: 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.45);
     border-radius: 0;
-    background: linear-gradient(145deg, rgba(6, 12, 24, 0.96), rgba(8, 19, 31, 0.96));
+    background: rgba(0, 0, 0, 0.56);
+    box-shadow: inset 0 -1px 0 rgba(247, 215, 116, 0.25);
     padding: 0.5rem clamp(0.75rem, 2vw, 1.2rem);
     display: flex;
     justify-content: space-between;
@@ -1293,9 +1294,10 @@ button:disabled,
 
 .hunter-stat-chip {
     min-width: 85px;
-    border: 1px solid rgba(148, 163, 184, 0.34);
+    border: 1px solid rgba(212, 175, 55, 0.48);
     border-radius: 8px;
-    background: rgba(2, 6, 23, 0.5);
+    background: rgba(0, 0, 0, 0.62);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.16);
     padding: 0.35rem 0.5rem;
     display: grid;
     gap: 0.12rem;
@@ -1331,10 +1333,10 @@ button:disabled,
 }
 
 .level-picker select {
-    border: 1px solid rgba(148, 163, 184, 0.36);
+    border: 1px solid rgba(212, 175, 55, 0.46);
     border-radius: 8px;
-    background: rgba(2, 6, 23, 0.74);
-    color: #f8fafc;
+    background: rgba(0, 0, 0, 0.74);
+    color: #f8e7b5;
     font-family: var(--font-code);
     font-size: 0.76rem;
     padding: 0.35rem 0.5rem;
@@ -1343,7 +1345,7 @@ button:disabled,
 }
 
 .level-picker select:hover {
-    border-color: rgba(148, 163, 184, 0.5);
+    border-color: rgba(247, 215, 116, 0.75);
 }
 
 .level-picker select:focus-visible {
@@ -1389,7 +1391,7 @@ button:disabled,
     overflow: hidden;
     border: 0;
     border-radius: 0;
-    background: rgba(2, 6, 23, 0.9);
+    background: rgba(0, 0, 0, 0.2);
     min-height: calc(100vh - 85px);
     display: grid;
     grid-template-columns: minmax(240px, 1fr) minmax(0, 1.35fr) minmax(220px, 0.95fr);
@@ -1409,12 +1411,12 @@ button:disabled,
 
 .arena-bg-left {
     left: 0;
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.24), rgba(127, 29, 29, 0.6));
+    display: none;
 }
 
 .arena-bg-right {
     right: 0;
-    background: linear-gradient(180deg, rgba(29, 78, 216, 0.2), rgba(30, 64, 175, 0.58));
+    display: none;
 }
 
 .arena-side,
@@ -1472,10 +1474,13 @@ button:disabled,
 }
 
 .arena-prompt {
-    border: 1px solid rgba(148, 163, 184, 0.28);
+    border: 1px solid rgba(212, 175, 55, 0.65);
     border-radius: 12px;
     padding: 0.6rem 0.7rem;
-    background: linear-gradient(120deg, rgba(69, 10, 10, 0.48), rgba(69, 10, 10, 0.2));
+    background: rgba(0, 0, 0, 0.84);
+    box-shadow:
+        inset 0 0 0 1px rgba(247, 215, 116, 0.25),
+        0 0 20px rgba(212, 175, 55, 0.25);
     display: grid;
     gap: 0.35rem;
     max-width: 80%;
@@ -1493,7 +1498,7 @@ button:disabled,
     bottom: 22px;
     border-top: 9px solid transparent;
     border-bottom: 9px solid transparent;
-    border-right: 14px solid rgba(69, 10, 10, 0.44);
+    border-right: 14px solid rgba(212, 175, 55, 0.5);
 }
 
 .hunter-bubble-wrapper {
@@ -1512,10 +1517,13 @@ button:disabled,
 .arena-answer-bubble {
     margin-left: auto;
     width: min(92%, 640px);
-    border: 1px solid rgba(148, 163, 184, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.7);
     border-radius: 12px;
     padding: 0.7rem;
-    background: linear-gradient(120deg, rgba(29, 78, 216, 0.42), rgba(30, 64, 175, 0.2));
+    background: rgba(0, 0, 0, 0.86);
+    box-shadow:
+        inset 0 0 0 1px rgba(247, 215, 116, 0.26),
+        0 0 24px rgba(212, 175, 55, 0.22);
     position: relative;
     display: grid;
     gap: 0.55rem;
@@ -1528,7 +1536,7 @@ button:disabled,
     bottom: 22px;
     border-top: 9px solid transparent;
     border-bottom: 9px solid transparent;
-    border-left: 14px solid rgba(29, 78, 216, 0.42);
+    border-left: 14px solid rgba(212, 175, 55, 0.55);
 }
 
 .arena-answer-bubble > span {
@@ -1536,7 +1544,7 @@ button:disabled,
     font-size: 0.74rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #bfdbfe;
+    color: #f8e7b5;
 }
 
 .arena-prompt span {
@@ -1544,13 +1552,13 @@ button:disabled,
     font-size: 0.74rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #fecaca;
+    color: #f8e7b5;
 }
 
 .arena-prompt p {
     font-family: var(--font-display);
     font-size: 1.04rem;
-    color: #fef2f2;
+    color: #f8f3df;
 }
 
 .battle-cards-grid {
@@ -1565,14 +1573,14 @@ button:disabled,
     overflow: hidden;
     min-height: 110px;
     border-radius: 12px;
-    border: 1px solid rgba(125, 211, 252, 0.36);
-    background: linear-gradient(150deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.72));
+    border: 1px solid rgba(212, 175, 55, 0.42);
+    background: linear-gradient(150deg, rgba(0, 0, 0, 0.88), rgba(24, 17, 5, 0.92));
     padding: 0.55rem 0.65rem;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     text-align: left;
-    color: #e0f2fe;
+    color: #f8f3df;
     transform: translateY(0) rotate(-1deg);
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
@@ -1583,8 +1591,8 @@ button:disabled,
 
 .battle-card:hover:not(:disabled) {
     transform: translateY(-9px) rotate(0deg);
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.46);
-    border-color: rgba(191, 219, 254, 0.85);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.52), 0 0 16px rgba(212, 175, 55, 0.3);
+    border-color: rgba(247, 215, 116, 0.85);
 }
 
 .battle-card:disabled {
@@ -1610,14 +1618,14 @@ button:disabled,
     place-items: center;
     font-family: var(--font-code);
     font-size: 0.76rem;
-    color: #dbeafe;
-    background: rgba(2, 6, 23, 0.33);
-    border: 1px solid rgba(191, 219, 254, 0.3);
+    color: #f8e7b5;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.45);
 }
 
 .battle-card.revealed-correct {
-    border-color: rgba(56, 189, 248, 0.95);
-    background: linear-gradient(150deg, rgba(14, 116, 144, 0.95), rgba(14, 165, 233, 0.72));
+    border-color: rgba(74, 222, 128, 0.95);
+    background: linear-gradient(150deg, rgba(0, 0, 0, 0.92), rgba(13, 49, 27, 0.86));
 }
 
 .battle-card.revealed-wrong {
@@ -1646,7 +1654,7 @@ button:disabled,
     height: 220px;
     border-radius: 999px;
     border: 1px solid rgba(148, 163, 184, 0.4);
-    background: rgba(30, 41, 59, 0.7);
+    background: rgba(0, 0, 0, 0.72);
     overflow: hidden;
     position: relative;
 }
@@ -1875,18 +1883,18 @@ button:disabled,
 
 .hunter-dialogue {
     font-size: 1.08rem;
-    color: #bfdbfe;
+    color: #f8f3df;
     font-family: var(--font-display);
 }
 
 .hunter-progress {
-    color: #cbd5e1;
+    color: #f1deb2;
     font-family: var(--font-code);
     font-size: 0.85rem;
 }
 
 .hunter-topic-chip {
-    color: #cbd5e1;
+    color: #f1deb2;
     font-family: var(--font-code);
     font-size: 0.82rem;
 }
@@ -1959,8 +1967,10 @@ button:disabled,
 }
 
 .hunter-topic-stat {
-    border: 1px solid var(--line);
+    border: 1px solid rgba(212, 175, 55, 0.45);
     border-radius: 10px;
+    background: rgba(0, 0, 0, 0.58);
+    box-shadow: inset 0 0 0 1px rgba(247, 215, 116, 0.14);
     padding: 0.7rem;
     display: flex;
     flex-direction: column;
