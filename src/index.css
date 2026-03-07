@@ -2462,6 +2462,392 @@ button:disabled,
     }
 }
 
+/* ============================================
+   DATA CITY CHALLENGE PAGE THEME OVERRIDES
+   ============================================ */
+
+.city-page {
+    position: relative;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 18% 14%, rgba(212, 175, 55, 0.08), transparent 34%),
+        radial-gradient(circle at 82% 78%, rgba(212, 175, 55, 0.06), transparent 38%),
+        linear-gradient(180deg, #05070f 0%, #04060d 100%);
+}
+
+.city-page::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse at 50% 52%, transparent 38%, rgba(0, 0, 0, 0.58) 100%);
+}
+
+.city-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+.city-topbar,
+.city-panel-header,
+.state-card,
+.editor-shell,
+.game-frame {
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.08) inset;
+}
+
+.city-topbar {
+    background: linear-gradient(145deg, rgba(8, 12, 26, 0.95), rgba(8, 11, 22, 0.92));
+}
+
+.city-topbar h1,
+.city-panel-header h2,
+.state-card h3 {
+    color: #f0c040;
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 0 0 14px rgba(240, 192, 64, 0.2);
+}
+
+.city-topbar p,
+.city-panel-header p,
+.state-card p,
+.state-card li {
+    color: #cbd5e1;
+}
+
+.expected-line {
+    color: rgba(240, 192, 64, 0.84);
+}
+
+.editor-shell,
+.game-frame {
+    border: 1px solid rgba(212, 175, 55, 0.38);
+    background: linear-gradient(145deg, rgba(5, 8, 18, 0.95), rgba(4, 7, 16, 0.96));
+}
+
+.state-card {
+    background: linear-gradient(145deg, rgba(8, 12, 26, 0.92), rgba(7, 10, 20, 0.9));
+}
+
+.event-card {
+    border-color: rgba(212, 175, 55, 0.34);
+}
+
+.topbar-links .secondary-btn,
+.button-row .secondary-btn {
+    background: linear-gradient(135deg, rgba(18, 24, 44, 0.95), rgba(15, 20, 36, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.34);
+    color: #e5e7eb;
+}
+
+.topbar-links .secondary-btn:hover,
+.button-row .secondary-btn:hover {
+    border-color: rgba(212, 175, 55, 0.65);
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
+}
+
+.button-row .primary-btn {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.98), rgba(247, 215, 116, 0.95));
+    color: #101828;
+    border: 1px solid rgba(212, 175, 55, 0.8);
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.3);
+}
+
+.button-row .primary-btn:hover {
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.42);
+}
+
+.warning-text {
+    border-color: rgba(212, 175, 55, 0.48);
+    background: rgba(87, 60, 16, 0.25);
+    color: #fde68a;
+}
+
+.error-text {
+    border-color: rgba(239, 68, 68, 0.48);
+    background: rgba(127, 29, 29, 0.26);
+    color: #fecaca;
+}
+
+.success-text {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(70, 53, 16, 0.28);
+    color: #fef3c7;
+}
+
+.city-not-found {
+    background:
+        radial-gradient(circle at 50% 24%, rgba(212, 175, 55, 0.08), transparent 34%),
+        linear-gradient(180deg, #05070f 0%, #03040a 100%);
+}
+
+.city-not-found h1 {
+    color: #f0c040;
+}
+
+/* AI recommendation overlay - align with Data City palette */
+.enhanced-ai-overlay {
+    background: rgba(1, 2, 6, 0.82);
+}
+
+.enhanced-ai-card {
+    background: linear-gradient(145deg, rgba(8, 12, 26, 0.98), rgba(8, 11, 22, 0.97));
+    border: 1px solid rgba(212, 175, 55, 0.34);
+    box-shadow: 0 22px 72px rgba(0, 0, 0, 0.7), 0 0 24px rgba(212, 175, 55, 0.12);
+}
+
+.enhanced-ai-card .ai-header h3,
+.enhanced-ai-card .question-info h4,
+.enhanced-ai-card .level-name {
+    color: #f0c040;
+    font-family: "Cinzel", serif;
+    letter-spacing: 0.06em;
+}
+
+.enhanced-ai-card .ai-score-card,
+.enhanced-ai-card .ai-feedback-section,
+.enhanced-ai-card .advanced-details,
+.enhanced-ai-card .level-progress-section {
+    background: rgba(12, 18, 36, 0.75);
+    border-color: rgba(212, 175, 55, 0.18);
+}
+
+.enhanced-ai-card .details-toggle,
+.enhanced-ai-card .dismiss-btn {
+    border-color: rgba(212, 175, 55, 0.3);
+    color: #d1d5db;
+}
+
+.enhanced-ai-card .details-toggle:hover,
+.enhanced-ai-card .dismiss-btn:hover {
+    border-color: rgba(212, 175, 55, 0.54);
+    background: rgba(212, 175, 55, 0.12);
+}
+
+.enhanced-ai-card .next-question-card {
+    background: rgba(16, 22, 40, 0.88);
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.enhanced-ai-card .try-now-btn {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.98), rgba(247, 215, 116, 0.95));
+    color: #101828;
+}
+
+.enhanced-ai-card .try-now-btn:hover {
+    background: linear-gradient(135deg, rgba(224, 191, 79, 0.98), rgba(250, 224, 132, 0.95));
+}
+
+/* District Challenges Theme */
+.dq-page {
+    position: relative;
+    background: radial-gradient(ellipse at 50% -20%, rgba(240, 192, 64, 0.1), transparent 45%), #05080f;
+    overflow: hidden;
+}
+
+.dq-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0, 0, 0, 0.58) 100%);
+}
+
+.dq-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.28;
+    background-image:
+        radial-gradient(circle at 14% 22%, rgba(240, 192, 64, 0.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 66% 34%, rgba(240, 192, 64, 0.55) 0 1px, transparent 2px),
+        radial-gradient(circle at 84% 74%, rgba(240, 192, 64, 0.62) 0 1px, transparent 2px),
+        radial-gradient(circle at 24% 82%, rgba(240, 192, 64, 0.45) 0 1px, transparent 2px);
+}
+
+.dq-header,
+.dq-filter-bar,
+.dq-container {
+    position: relative;
+    z-index: 2;
+}
+
+.dq-header {
+    margin-top: 0.4rem;
+    border: 1px solid rgba(240, 192, 64, 0.22);
+    border-radius: 14px;
+    padding: 0.9rem 1rem;
+    background: rgba(6, 10, 22, 0.86);
+    box-shadow: 0 0 24px rgba(240, 192, 64, 0.08);
+    align-items: center;
+}
+
+.dq-title-block {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.dq-subtitle {
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+}
+
+.dq-header-actions {
+    margin-top: 0;
+}
+
+.dq-header-actions .secondary-btn {
+    border-color: rgba(240, 192, 64, 0.4);
+    color: #f0c040;
+    background: rgba(240, 192, 64, 0.08);
+}
+
+.dq-filter-bar {
+    max-width: 1200px;
+    margin: 0.9rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.filter-btn {
+    border: 1px solid rgba(240, 192, 64, 0.24);
+    border-radius: 999px;
+    background: rgba(8, 12, 26, 0.9);
+    color: rgba(229, 231, 235, 0.76);
+    padding: 0.42rem 0.78rem;
+    font-family: var(--font-code);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 180ms ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    border-color: rgba(240, 192, 64, 0.58);
+    color: #f0c040;
+    box-shadow: 0 0 12px rgba(240, 192, 64, 0.18);
+}
+
+.dq-container {
+    max-width: 1200px;
+    margin: 1rem auto 0;
+    gap: 1.15rem;
+}
+
+.district-section {
+    background: rgba(8, 12, 26, 0.72);
+    border: 1px solid rgba(240, 192, 64, 0.16);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.district-section:hover {
+    border-color: rgba(240, 192, 64, 0.28);
+    box-shadow: 0 0 20px rgba(240, 192, 64, 0.12);
+    transform: none;
+}
+
+.level-section {
+    margin-bottom: 0.9rem;
+    background: rgba(8, 12, 26, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 10px;
+}
+
+.level-section:hover {
+    border-color: rgba(240, 192, 64, 0.36);
+}
+
+.level-toggle {
+    padding: 0.95rem 1rem;
+}
+
+.level-toggle:hover {
+    background: rgba(240, 192, 64, 0.08);
+}
+
+.level-emoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(240, 192, 64, 0.45);
+    color: #f0c040;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    font-family: var(--font-code);
+}
+
+.level-name {
+    color: #f0c040;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+}
+
+.level-count {
+    color: rgba(229, 231, 235, 0.7);
+    font-size: 0.78rem;
+}
+
+.toggle-arrow {
+    color: rgba(240, 192, 64, 0.8);
+}
+
+.level-questions {
+    padding: 0.95rem;
+    gap: 0.95rem;
+    background: rgba(5, 9, 18, 0.52);
+    border-top: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.question-card {
+    border: 1px solid rgba(148, 163, 184, 0.24);
+    border-radius: 12px;
+    background: rgba(8, 12, 26, 0.9);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.question-card:hover {
+    border-color: rgba(240, 192, 64, 0.62);
+    box-shadow: 0 0 24px rgba(240, 192, 64, 0.16);
+    transform: translateY(-2px);
+}
+
+.question-card h3 {
+    color: #f3f4f6;
+}
+
+.question-card p {
+    color: rgba(229, 231, 235, 0.8);
+}
+
+.question-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.difficulty-tag,
+.category-tag {
+    border-color: rgba(240, 192, 64, 0.34);
+    color: #f0c040;
+    background: rgba(240, 192, 64, 0.08);
+}
+
 
 /* AI Recommendation Overlay */
 .ai-recommendation-overlay {
