@@ -64,6 +64,9 @@ function normalizeError(error, fallbackLine) {
 }
 
 function DataCitySession({ question }) {
+    const isLinkedList = question.category === "linkedlist";
+    const isStack = question.category === "stack";
+    const isQueue = question.category === "queue";
     const template = createProgramTemplate(question.input);
 
     const [userCode, setUserCode] = useState(question.starterCode);
@@ -77,34 +80,53 @@ function DataCitySession({ question }) {
 
     const runTokenRef = useRef(0);
 
-    const resetPlayback = useCallback((inputArray) => {
+    const resetPlayback = useCallback((inputArray, linkedListData, stackData, queueData) => {
         runTokenRef.current += 1;
         setIsRunning(false);
         setCurrentLine(null);
         setCurrentState(createInitialState(inputArray));
         setEventLog([]);
-        gameBridge.emit("reset", {
-            array: [...inputArray],
-        });
-    }, []);
+        
+        if (isLinkedList && linkedListData) {
+            gameBridge.emit("reset", { linkedListData });
+        } else if (isStack && stackData) {
+            gameBridge.emit("reset", { stackData });
+        } else if (isQueue && queueData) {
+            gameBridge.emit("reset", { queueData });
+        } else {
+            gameBridge.emit("reset", { array: [...inputArray] });
+        }
+    }, [isLinkedList, isStack, isQueue]);
 
     useEffect(() => {
-        gameBridge.emit("reset", {
-            array: [...question.input],
-        });
+        if (isLinkedList && question.linkedListData) {
+            gameBridge.emit("reset", { linkedListData: question.linkedListData });
+        } else if (isStack && question.stackData) {
+            gameBridge.emit("reset", { stackData: question.stackData });
+        } else if (isQueue && question.queueData) {
+            gameBridge.emit("reset", { queueData: question.queueData });
+        } else {
+            gameBridge.emit("reset", { array: [...question.input] });
+        }
 
         return () => {
             runTokenRef.current += 1;
         };
-    }, [question.input]);
+    }, [question.input, question.linkedListData, question.stackData, question.queueData, isLinkedList, isStack, isQueue]);
 
-    const playSteps = useCallback(async (steps, finalState, inputArray) => {
+    const playSteps = useCallback(async (steps, finalState, inputArray, linkedListData, stackData, queueData) => {
         const activeToken = ++runTokenRef.current;
         setIsRunning(true);
 
-        gameBridge.emit("reset", {
-            array: [...inputArray],
-        });
+        if (isLinkedList && linkedListData) {
+            gameBridge.emit("reset", { linkedListData });
+        } else if (isStack && stackData) {
+            gameBridge.emit("reset", { stackData });
+        } else if (isQueue && queueData) {
+            gameBridge.emit("reset", { queueData });
+        } else {
+            gameBridge.emit("reset", { array: [...inputArray] });
+        }
 
         for (const step of steps) {
             if (activeToken !== runTokenRef.current) {
@@ -132,7 +154,7 @@ function DataCitySession({ question }) {
         }
 
         return { cancelled: true };
-    }, []);
+    }, [isLinkedList, isStack, isQueue]);
 
     const handleRun = useCallback(async () => {
         setRuntimeError(null);
@@ -164,7 +186,7 @@ function DataCitySession({ question }) {
             return;
         }
 
-        const playResult = await playSteps(simulation.steps, simulation.finalState, question.input);
+        const playResult = await playSteps(simulation.steps, simulation.finalState, question.input, question.linkedListData, question.stackData, question.queueData);
         if (playResult.cancelled) {
             return;
         }
@@ -180,8 +202,8 @@ function DataCitySession({ question }) {
         setRuntimeError(null);
         setTemplateWarning("");
         setValidation(null);
-        resetPlayback(question.input);
-    }, [question.input, resetPlayback]);
+        resetPlayback(question.input, question.linkedListData, question.stackData, question.queueData);
+    }, [question.input, question.linkedListData, question.stackData, question.queueData, resetPlayback]);
 
     const variableRows = Object.entries(currentState.variables);
 
@@ -203,11 +225,31 @@ function DataCitySession({ question }) {
             <div className="city-layout">
                 <section className="game-column">
                     <header className="city-panel-header">
-                        <h2>Array District</h2>
-                        <p>Input: [{question.input.join(", ")}]</p>
+                        <h2>
+                            {isLinkedList ? "LinkedList Harbor" : 
+                             isStack ? "Stack Tower" :
+                             isQueue ? "Queue Lane" :
+                             "Array District"}
+                        </h2>
+                        <p>
+                            {isLinkedList 
+                                ? `Nodes: [${question.linkedListData.values.join(", ")}]`
+                                : isStack
+                                ? `Stack: [${question.stackData.values.join(", ")}]`
+                                : isQueue
+                                ? `Queue: [${question.queueData.values.join(", ")}]`
+                                : `Input: [${question.input.join(", ")}]`
+                            }
+                        </p>
                     </header>
                     <div className="game-frame">
-                        <GamePanel initialArray={question.input} />
+                        <GamePanel 
+                            initialArray={question.input}
+                            linkedListData={question.linkedListData}
+                            stackData={question.stackData}
+                            queueData={question.queueData}
+                            district={isLinkedList ? "linkedlist" : isStack ? "stack" : isQueue ? "queue" : "array"}
+                        />
                     </div>
                 </section>
 
