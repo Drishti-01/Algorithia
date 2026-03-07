@@ -294,194 +294,393 @@ button:disabled,
 
 .hunters-section {
     z-index: 1;
-    padding-bottom: 0;
-    background: linear-gradient(180deg, #05070f 0%, #04060d 100%);
-}
-
-.cta-section {
-    z-index: 1;
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 7vw, 6rem);
+    background: #05070f;
 }
 
 .hunters-intro {
-    max-width: 860px;
-    margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+    width: min(920px, calc(100% - 2.4rem));
+    margin: 0 auto;
+    padding: clamp(4.2rem, 9vw, 7.2rem) 0 clamp(1.4rem, 3vw, 2.4rem);
+    text-align: center;
 }
 
-.hunter-reveal-stack {
-    display: block;
-}
-
-.hunter-reveal-scene {
+.hunter-wrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+}
+
+.hunter-block {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.hunter-showcase-stage {
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    min-height: 92vh;
     overflow: hidden;
-    background: radial-gradient(circle at center, #0a0f1c 0%, #05070f 60%, #000000 100%);
+    background: #05070f;
 }
 
-.reveal-atmosphere {
+.hunter-stage-atmosphere {
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
-.reveal-fog-layer {
+.hunter-stage-fog {
     position: absolute;
-    inset: 0;
-    opacity: 0.42;
+    inset: -12% -8%;
+}
+
+.hunter-stage-fog-deep {
     background:
-        radial-gradient(circle at 20% 70%, rgba(166, 166, 166, 0.08), transparent 46%),
-        radial-gradient(circle at 80% 28%, rgba(118, 118, 118, 0.1), transparent 40%),
-        radial-gradient(circle at 48% 60%, rgba(72, 72, 72, 0.18), transparent 52%);
-    filter: blur(26px);
+        radial-gradient(circle at 18% 66%, rgba(37, 43, 62, 0.58), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(26, 29, 44, 0.54), transparent 44%),
+        radial-gradient(circle at 52% 78%, rgba(18, 22, 32, 0.8), transparent 58%);
+    filter: blur(36px);
 }
 
-.reveal-radial-light {
-    position: absolute;
-    width: min(82vw, 980px);
-    height: min(82vw, 980px);
-    left: 50%;
-    top: 54%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(251, 191, 36, 0.18), rgba(251, 191, 36, 0.04) 40%, transparent 70%);
-    filter: blur(4px);
+.hunter-stage-fog-front {
+    background:
+        radial-gradient(circle at 25% 74%, rgba(67, 68, 73, 0.24), transparent 36%),
+        radial-gradient(circle at 72% 78%, rgba(64, 65, 71, 0.2), transparent 34%),
+        radial-gradient(circle at 50% 90%, rgba(78, 79, 84, 0.22), transparent 42%);
+    filter: blur(22px);
 }
 
-.reveal-vignette {
+.hunter-stage-vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 52%, transparent 34%, rgba(2, 3, 7, 0.75) 100%);
+    background:
+        radial-gradient(circle at 50% 56%, rgba(5, 7, 15, 0) 30%, rgba(5, 7, 15, 0.62) 72%, rgba(0, 0, 0, 0.9) 100%);
 }
 
-.reveal-layout {
-    position: relative;
-    z-index: 2;
-    width: min(1500px, 100%);
-    min-height: inherit;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: minmax(260px, 1fr) minmax(360px, 1.2fr) minmax(260px, 1fr);
-    gap: clamp(1rem, 2.6vw, 2.4rem);
-    align-items: center;
-    padding: clamp(1.4rem, 4vw, 3.2rem);
-}
-
-.reveal-left,
-.reveal-right {
-    align-self: center;
-}
-
-.reveal-overline {
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #fcd34d;
-    font-size: 0.66rem;
-}
-
-.reveal-name {
-    margin-top: 0.45rem;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3vw, 3.25rem);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #f8fafc;
-    text-shadow: 0 0 18px rgba(251, 191, 36, 0.24);
-}
-
-.reveal-title {
-    margin-top: 0.22rem;
-    color: #cbd5e1;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.78rem;
-}
-
-.reveal-description {
-    margin-top: 0.95rem;
-    color: #cbd5e1;
-    max-width: 36ch;
-}
-
-.reveal-stats {
-    margin-top: 1.25rem;
-    display: grid;
-    gap: 0.65rem;
-}
-
-.statbar-head {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #cbd5e1;
-}
-
-.statbar-track {
-    height: 7px;
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.88);
+.hunter-stage-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     overflow: hidden;
 }
 
-.statbar-fill {
+.hunter-atmo-particle {
+    position: absolute;
+    left: var(--left);
+    bottom: -8vh;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 999px;
+    background: rgba(212, 175, 55, 0.88);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    opacity: 0;
+    animation: hunterSparkFloat var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.hunter-showcase-stage.is-hovered .hunter-atmo-particle {
+    animation-duration: calc(var(--duration) * 0.54);
+}
+
+.hunter-stage-content {
+    position: relative;
+    z-index: 3;
+    width: min(1500px, 100%);
+    min-height: 540px;
+    margin: 0 auto;
+    padding: clamp(1.15rem, 2.6vw, 2.15rem) clamp(1rem, 2.8vw, 2.2rem) clamp(2rem, 4.5vw, 3.4rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.hunter-scene-label {
+    text-align: center;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-size: 0.66rem;
+    color: rgba(247, 215, 116, 0.92);
+    flex-shrink: 0;
+}
+
+.hunter-stage-header {
+    text-align: center;
+    margin-top: clamp(0.8rem, 2vw, 1.6rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    flex-shrink: 0;
+}
+
+.hunter-cinematic-name {
+    display: inline-flex;
+    gap: 0.09em;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 7vw, 5.6rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fef9df;
+}
+
+.hunter-name-char-wrap {
+    position: relative;
+    display: inline-flex;
+}
+
+.hunter-name-letter {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+}
+
+.hunter-name-spark {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(247, 215, 116, 1), rgba(247, 215, 116, 0.2) 66%, transparent 100%);
+    box-shadow: 0 0 16px rgba(247, 215, 116, 0.85);
+    pointer-events: none;
+}
+
+.hunter-stage-title {
+    margin-top: 0.46rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: clamp(0.76rem, 1.5vw, 1rem);
+    color: #e7d5a2;
+}
+
+.hunter-stage-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: clamp(0.7rem, 1.8vw, 1.4rem);
+    align-items: center;
+    padding-top: clamp(0.4rem, 1.2vw, 0.8rem);
+}
+
+.hunter-stage-column {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.9rem, 1.6vw, 1.3rem);
+}
+
+.hunter-stage-left {
+    text-align: right;
+    align-items: flex-end;
+}
+
+.hunter-stage-right {
+    text-align: left;
+    align-items: flex-start;
+}
+
+.hunter-brief-block,
+.hunter-notes-block {
+    width: min(30ch, 100%);
+}
+
+.hunter-lore-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(247, 215, 116, 0.92);
+}
+
+.hunter-lore-text {
+    margin-top: 0.6rem;
+    color: #d3d8e5;
+    line-height: 1.45;
+    text-shadow: 0 10px 24px rgba(3, 5, 11, 0.85);
+}
+
+.hunter-stage-center {
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hunter-character-stage {
+    position: relative;
+    width: min(46vw, 640px);
+    height: min(60vh, 640px);
+    min-height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.hunter-stage-gold-glow {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    width: min(42vw, 520px);
+    height: min(42vw, 520px);
+    transform: translate(-50%, -50%);
+    background:
+        radial-gradient(circle at center, rgba(212, 175, 55, 0.25), transparent 60%);
+    filter: blur(8px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hunter-character-stage.is-hovered .hunter-stage-gold-glow {
+    filter: blur(6px);
+}
+
+.hunter-stage-ground-fog {
+    position: absolute;
+    left: 50%;
+    bottom: 8%;
+    width: min(46vw, 520px);
+    height: 14vh;
+    transform: translateX(-50%);
+    background:
+        radial-gradient(ellipse at center, rgba(96, 98, 107, 0.22) 0%, rgba(18, 23, 38, 0.04) 72%, transparent 100%);
+    filter: blur(11px);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hunter-image {
+    position: relative;
+    z-index: 2;
+    max-height: 65vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.45));
+    user-select: none;
+    pointer-events: none;
+}
+
+.hunter-stat-stack {
+    width: min(340px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.chapter-stat {
+    width: min(340px, 100%);
+    display: flex;
+    align-items: center;
+    gap: clamp(0.42rem, 0.8vw, 0.68rem);
+}
+
+.chapter-stat-left {
+    justify-content: flex-end;
+}
+
+.chapter-stat-right {
+    justify-content: flex-start;
+}
+
+.chapter-stat-core {
+    flex: 1;
+    padding: 0.54rem 0.68rem;
+    border: 1px solid rgba(212, 175, 55, 0.24);
+    background: rgba(6, 10, 18, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.chapter-stat-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #dbe3f4;
+}
+
+.chapter-stat-track {
+    margin-top: 0.4rem;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(9, 15, 28, 0.86);
+    overflow: hidden;
+}
+
+.chapter-stat-fill {
     display: block;
     height: 100%;
     border-radius: inherit;
-    background: linear-gradient(90deg, rgba(217, 119, 6, 0.9), rgba(251, 191, 36, 1));
-    box-shadow: 0 0 16px rgba(251, 191, 36, 0.45);
+    background: linear-gradient(90deg, #d4af37, #f7d774);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.58);
 }
 
-.reveal-center {
-    min-height: 72vh;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+.chapter-stat-line-shell {
+    width: clamp(34px, 3.6vw, 58px);
+    flex-shrink: 0;
+}
+
+.chapter-stat-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.86), rgba(212, 175, 55, 0.2));
+    transform-origin: left center;
     position: relative;
 }
 
-.reveal-center-frame {
+.chapter-stat-line::after {
+    content: "";
     position: absolute;
-    width: min(74vh, 640px);
-    height: min(74vh, 640px);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(251, 191, 36, 0.24), rgba(251, 191, 36, 0.06) 45%, transparent 72%);
-    filter: blur(8px);
+    right: 0;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    transform: translate(50%, -50%);
+    background: rgba(247, 215, 116, 0.96);
+    box-shadow: 0 0 10px rgba(247, 215, 116, 0.8);
 }
 
-.reveal-portrait {
-    position: relative;
-    z-index: 3;
-    width: auto;
-    height: clamp(420px, 70vh, 760px);
-    max-width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 26px 42px rgba(0, 0, 0, 0.7));
+.chapter-stat-left .chapter-stat-line {
+    transform-origin: right center;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.86));
 }
 
-.lore-block {
-    margin-bottom: 1rem;
+.chapter-stat-left .chapter-stat-line::after {
+    left: 0;
+    right: auto;
+    transform: translate(-50%, -50%);
 }
 
-.lore-label {
-    font-size: 0.66rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #94a3b8;
+@keyframes hunterSparkFloat {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.55);
+        opacity: 0;
+    }
+    14% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate3d(var(--drift), -118vh, 0) scale(1.1);
+        opacity: 0;
+    }
 }
 
-.lore-value {
-    margin-top: 0.3rem;
-    font-family: var(--font-display);
-    letter-spacing: 0.05em;
-    color: #f8fafc;
-}
-
-.lore-notes {
-    margin-top: 1.2rem;
-    padding-top: 0.55rem;
-    color: #cbd5e1;
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 .cta-section {
@@ -851,16 +1050,32 @@ button:disabled,
 }
 
 @media (max-width: 1120px) {
-    .hunter-reveal-scene {
-        min-height: 86vh;
+    .hunter-stage-grid {
+        grid-template-columns: 1fr 1.4fr 1fr;
+        gap: 0.8rem;
     }
 
-    .reveal-layout {
-        grid-template-columns: 1fr 1fr;
+    .hunter-character-stage {
+        width: min(52vw, 560px);
+        height: min(54vh, 560px);
+        min-height: 330px;
     }
 
-    .reveal-center {
-        grid-column: 1 / -1;
+    .hunter-stage-gold-glow {
+        width: min(46vw, 440px);
+        height: min(46vw, 440px);
+    }
+
+    .hunter-stage-ground-fog {
+        width: min(48vw, 440px);
+    }
+
+    .hunter-stat-stack {
+        width: 100%;
+    }
+
+    .chapter-stat-line-shell {
+        width: clamp(30px, 3.2vw, 44px);
     }
 
     .city-layout {
@@ -902,21 +1117,83 @@ button:disabled,
         grid-template-columns: 1fr;
     }
 
-    .reveal-layout {
+    .hunters-intro {
+        width: calc(100% - 1.8rem);
+        padding-top: clamp(3.2rem, 12vw, 4.5rem);
+    }
+
+    .hunter-block {
+        padding: 32px 0 28px;
+    }
+
+    .hunter-showcase-stage {
+        width: 100%;
+        margin-left: 0;
+        border-radius: 22px;
+    }
+
+    .hunter-stage-header {
+        margin-top: 0.6rem;
+        margin-bottom: 1.1rem;
+    }
+
+    .hunter-stage-grid {
         grid-template-columns: 1fr;
-        padding-top: 2.2rem;
-        padding-bottom: 2.2rem;
+        align-items: start;
+        gap: 1rem;
     }
 
-    .reveal-center {
-        min-height: 48vh;
+    .hunter-cinematic-name {
+        font-size: clamp(1.65rem, 10vw, 3.1rem);
+        letter-spacing: 0.14em;
     }
 
-    .reveal-portrait {
-        height: clamp(320px, 58vh, 520px);
+    .hunter-stage-title {
+        font-size: 0.7rem;
     }
 
-    .reveal-description {
-        max-width: none;
+    .hunter-stage-left,
+    .hunter-stage-right {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .hunter-stage-left {
+        order: 1;
+    }
+
+    .hunter-stage-center {
+        order: 2;
+    }
+
+    .hunter-stage-right {
+        order: 3;
+    }
+
+    .hunter-character-stage {
+        width: min(86vw, 460px);
+        height: auto;
+        min-height: 300px;
+    }
+
+    .hunter-stage-gold-glow {
+        width: min(84vw, 400px);
+        height: min(84vw, 400px);
+    }
+
+    .hunter-stage-ground-fog {
+        width: min(84vw, 420px);
+    }
+
+    .hunter-stat-stack {
+        width: 100%;
+    }
+
+    .chapter-stat-head {
+        font-size: 0.62rem;
+    }
+
+    .chapter-stat-line-shell {
+        width: 30px;
     }
 }

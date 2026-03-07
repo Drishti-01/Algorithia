@@ -1,15 +1,14 @@
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
-import vexaraImage from "../../assets/hunters/vexara.png";
-import kaelImage from "../../assets/hunters/kael.png";
-import elderootImage from "../../assets/hunters/elderoot.png";
-import ironrailImage from "../../assets/hunters/ironrail.png";
-import HunterReveal from "./HunterReveal";
+import HunterShowcase from "./HunterShowcase";
 
 const hunters = [
   {
     name: "Vexara",
     title: "Shadow Arcanist",
-    image: vexaraImage,
+    imagePath: "/hunters/vexara.png",
+    summary:
+      "Moonbound sigils carve hidden routes through collapsing lanes. Vexara turns every failed branch into a lethal feint.",
     affinity: "Arcane Stealth",
     clan: "Night Thread Accord",
     description:
@@ -27,7 +26,9 @@ const hunters = [
   {
     name: "Kael",
     title: "Blade of Queues",
-    image: kaelImage,
+    imagePath: "/hunters/kael.png",
+    summary:
+      "Kael anchors the front line with relentless tempo control. Pressure enters first and leaves as synchronized retaliation.",
     affinity: "Tempo Control",
     clan: "First-In Legion",
     description:
@@ -45,7 +46,9 @@ const hunters = [
   {
     name: "Elderoot",
     title: "Warden of Trees",
-    image: elderootImage,
+    imagePath: "/hunters/arbor.png",
+    summary:
+      "Elderoot redirects battle flow through living branch logic. Unstable encounters are pruned before they can cascade.",
     affinity: "Adaptive Growth",
     clan: "Rootline Circle",
     description:
@@ -63,7 +66,9 @@ const hunters = [
   {
     name: "Ironrail",
     title: "Graph Gunsmith",
-    image: ironrailImage,
+    imagePath: "/hunters/ironrail.png",
+    summary:
+      "Ironrail forges weighted routes into kill corridors. Every edge becomes a timed command for allied movement.",
     affinity: "Path Forging",
     clan: "Steel Vertex Guild",
     description:
@@ -81,8 +86,14 @@ const hunters = [
 ];
 
 function HunterProtocolSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleHunterFocus = useCallback((index) => {
+    setActiveIndex((prev) => (prev === index ? prev : index));
+  }, []);
+
   return (
-    <section id="hunters" className="hunters-section section">
+    <section id="hunters" className="hunters-section">
       <motion.div
         className="hunters-intro"
         initial={{ opacity: 0, y: 28 }}
@@ -91,16 +102,22 @@ function HunterProtocolSection() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
         <p className="section-kicker">Hunter Protocol</p>
-        <h2 className="section-title">Legends Of The Algorithmic Siege</h2>
+        <h2 className="section-title">Legendary Hunter Chapters</h2>
         <p className="section-copy">
-          Scroll to reveal each hunter in sequence. Every scene unveils combat
-          profile, faction lore, and battlefield potential.
+          Scroll to summon each legend from the dark. Every chapter reveals a
+          battlefield archetype in cinematic sequence.
         </p>
       </motion.div>
 
-      <div className="hunter-reveal-stack">
+      <div className="hunter-wrapper">
         {hunters.map((hunter, index) => (
-          <HunterReveal key={hunter.name} hunter={hunter} index={index} />
+          <HunterShowcase
+            key={hunter.name}
+            hunter={hunter}
+            index={index}
+            onActivate={handleHunterFocus}
+            activeIndex={activeIndex}
+          />
         ))}
       </div>
     </section>
