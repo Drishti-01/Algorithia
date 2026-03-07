@@ -1,6 +1,6 @@
-# Data City
+# Algorithia
 
-Data City is an interactive learning experience that mixes a Phaser-powered city builder with React-driven storytelling. Players explore algorithm-themed districts, answer questions, and run guided code simulations through the in-browser interpreter.
+Algorithia (Data City) is an interactive learning experience that mixes a Phaser-powered city builder with React-driven storytelling. Players explore algorithm-themed districts, answer questions, and run guided code simulations through the in-browser interpreter.
 
 ## Tech Stack
 - React 19 + Vite for the UI shell and routing
@@ -15,8 +15,8 @@ Data City is an interactive learning experience that mixes a Phaser-powered city
 ## Run Locally
 1. Clone the repository and move into the project folder:
 	```bash
-	git clone https://github.com/<your-org>/data-city.git
-	cd data-city
+	git clone https://github.com/Drishti-01/Algorithia.git
+	cd Algorithia
 	```
 2. Install dependencies:
 	```bash
@@ -26,7 +26,7 @@ Data City is an interactive learning experience that mixes a Phaser-powered city
 	```bash
 	npm run dev
 	```
-4. Visit the URL printed by Vite (usually http://localhost:5173) to explore Data City.
+4. Visit the URL printed by Vite (usually http://localhost:5173) to explore Algorithia.
 
 ## Build & QA
 - `npm run build` bundles the production assets.
