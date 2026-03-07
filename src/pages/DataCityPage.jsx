@@ -2,16 +2,81 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { EditorPanel } from "../components/EditorPanel";
 import { GamePanel } from "../components/GamePanel";
+import { EnhancedAIRecommendation } from "../components/EnhancedAIRecommendation";
 import { createProgramTemplate } from "../constants/template";
 import { QUESTIONS_BY_ID } from "../data/questions";
 import { generateSimulationSteps } from "../engine/stepGenerator";
 import { gameBridge } from "../game/gameBridge";
 import { SimulationError } from "../simulation/SimulationError";
 import { STEP_TYPES } from "../simulation/stepTypes";
+import { runEnhancedAIAnalysis } from "../ai/enhanced-analysis.service";
 
 const LINE_HIGHLIGHT_DELAY_MS = 400;
 const STEP_ANIMATION_DELAY_MS = 500;
 const MAX_LOG_ITEMS = 12;
+const BACKEND_URL = 'http://localhost:5000';
+
+// LocalStorage helpers
+function getUserLevel() {
+    return parseInt(localStorage.getItem('algorithia_user_level') || '1');
+}
+
+function getUserXP() {
+    return parseInt(localStorage.getItem('algorithia_user_xp') || '0');
+}
+
+function getCompletedQuestions() {
+    const data = localStorage.getItem('algorithia_completed_questions');
+    return data ? JSON.parse(data) : [];
+}
+
+function getUserHistory() {
+    const data = localStorage.getItem('algorithia_user_history');
+    return data ? JSON.parse(data) : [];
+}
+
+function saveProgress(level, xp, questionId, category, difficulty, score, timeTaken) {
+    localStorage.setItem('algorithia_user_level', level.toString());
+    localStorage.setItem('algorithia_user_xp', xp.toString());
+    
+    const completed = getCompletedQuestions();
+    if (!completed.includes(questionId)) {
+        completed.push(questionId);
+        localStorage.setItem('algorithia_completed_questions', JSON.stringify(completed));
+    }
+    
+    const history = getUserHistory();
+    history.push({
+        questionId,
+        category,
+        difficulty,
+        score,
+        timeTaken,
+        timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('algorithia_user_history', JSON.stringify(history));
+}
+
+// Backend API call
+async function callBackendAnalysis(data) {
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/analyze`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Backend error: ${response.status}`);
+        }
+        
+        return await response.json();
+    } catch (error) {
+        console.error('Backend API Error:', error);
+        // Fallback to frontend analysis if backend fails
+        return null;
+    }
+}
 
 function createInitialState(inputArray) {
     return {
@@ -77,6 +142,7 @@ function DataCitySession({ question }) {
     const [currentLine, setCurrentLine] = useState(null);
     const [currentState, setCurrentState] = useState(createInitialState(question.input));
     const [eventLog, setEventLog] = useState([]);
+    const [aiAnalysis, setAiAnalysis] = useState(null);
 
     const runTokenRef = useRef(0);
 
@@ -157,6 +223,9 @@ function DataCitySession({ question }) {
     }, [isLinkedList, isStack, isQueue]);
 
     const handleRun = useCallback(async () => {
+        const startTime = Date.now();
+        let incorrectAttempts = 0;
+        
         setRuntimeError(null);
         setTemplateWarning("");
         setValidation(null);
@@ -175,6 +244,7 @@ function DataCitySession({ question }) {
         } catch (error) {
             setIsRunning(false);
             setRuntimeError(normalizeError(error, template.editableStartLine));
+            incorrectAttempts++;
             return;
         }
 
@@ -183,6 +253,7 @@ function DataCitySession({ question }) {
                 line: template.editableStartLine,
                 kind: "SyntaxError",
             }));
+            incorrectAttempts++;
             return;
         }
 
@@ -191,11 +262,67 @@ function DataCitySession({ question }) {
             return;
         }
 
-        setValidation(question.validate({
+        const validationResult = question.validate({
             finalState: simulation.finalState,
             steps: simulation.steps,
             input: question.input,
-        }));
+        });
+        
+        setValidation(validationResult);
+        
+        // Calculate metrics
+        const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+        const performanceScore = validationResult.success ? 
+            Math.max(0, 100 - (incorrectAttempts * 15) - Math.max(0, (timeTaken - 30) * 2)) : 0;
+        
+        // Get user data
+        const userLevel = getUserLevel();
+        const userXP = getUserXP();
+        const completedQuestions = getCompletedQuestions();
+        const userHistory = getUserHistory();
+        
+        // Call backend for enhanced analysis
+        setTimeout(async () => {
+            try {
+                const backendAnalysis = await callBackendAnalysis({
+                    questionId: question.id,
+                    questionCategory: question.category || 'array',
+                    questionDifficulty: question.difficulty,
+                    timeTaken,
+                    incorrectAttempts,
+                    currentLevel: userLevel,
+                    currentXP: userXP,
+                    completedQuestions,
+                    userHistory,
+                    allQuestions: QUESTIONS
+                });
+                
+                // Enhanced AI Analysis (Frontend)
+                console.log('🤖 Running Enhanced AI Analysis...');
+                
+                const aiResult = runEnhancedAIAnalysis({
+                    questionId: question.id,
+                    questionCategory: question.category || 'array',
+                    questionDifficulty: question.difficulty,
+                    timeTaken,
+                    incorrectAttempts,
+                    codeLength: userCode.split('\n').length,
+                    variablesUsed: Object.keys(simulation.finalState.variables).length,
+                    previousAttempts: [],
+                    userHistory: {
+                        consecutiveSuccesses: 0,
+                        consecutiveFailures: 0,
+                        completedLevels: []
+                    }
+                });
+                
+                console.log('✅ Enhanced AI Analysis Complete:', aiResult);
+                setAiAnalysis(aiResult);
+            } catch (error) {
+                console.error('Analysis error:', error);
+            }
+        }, 1000);
+        
     }, [playSteps, question, template.editableStartLine, userCode]);
 
     const handleReset = useCallback(() => {
@@ -310,6 +437,13 @@ function DataCitySession({ question }) {
                     </ul>
                 )}
             </section>
+
+            {/* AI Recommendation Overlay */}
+            {/* Enhanced AI Recommendation Overlay */}
+            <EnhancedAIRecommendation 
+                analysis={aiAnalysis} 
+                onClose={() => setAiAnalysis(null)} 
+            />
         </div>
     );
 }

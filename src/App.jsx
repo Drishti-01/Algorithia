@@ -5,6 +5,7 @@ import DataCityPage from "./pages/DataCityPage";
 import HunterProtocolPage from "./pages/HunterProtocolPage";
 import LandingPage from "./pages/LandingPage";
 import QuestionsPage from "./pages/QuestionsPage";
+import DistrictSelectionPage from "./pages/DistrictSelectionPage";
 
 function LoginRoute() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginRoute />} />
+            <Route path="/districts" element={<DistrictSelectionPage />} />
             <Route path="/map" element={<DataCityMapPage />} />
             <Route path="/questions" element={<QuestionsPage />} />
             <Route path="/hunter-protocol" element={<HunterProtocolPage />} />
