@@ -29,7 +29,7 @@ function Navbar() {
           ))}
         </div>
 
-        <Link className="nav-cta" to="/questions">Enter Data City</Link>
+        <Link className="nav-cta" to="/login">Enter Data City</Link>
       </div>
     </motion.nav>
   );

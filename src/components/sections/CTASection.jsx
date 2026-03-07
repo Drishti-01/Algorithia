@@ -1,9 +1,21 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import gateVideo from "../../assets/videos/gate.mp4";
 
 function CTASection() {
   return (
     <section id="enter" className="cta-section section">
+      <video
+        className="cta-video"
+        src={gateVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
+
       <div className="cta-backdrop" />
 
       <motion.div
@@ -18,7 +30,7 @@ function CTASection() {
         <p>Choose a challenge and run your code through the city simulation engine.</p>
 
         <div className="cta-actions">
-          <Link to="/questions" className="gold-btn">
+          <Link to="/login" className="gold-btn">
             Enter Data City
           </Link>
           <a href="#hunters" className="ghost-btn">
