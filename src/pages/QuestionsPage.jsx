@@ -1,11 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { QuestionCard } from "../components/QuestionCard";
 import { QUESTIONS } from "../data/questions";
 
 export default function QuestionsPage() {
-    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [searchParams] = useSearchParams();
+    const districtParam = searchParams.get('district');
+    
+    const [selectedCategory, setSelectedCategory] = useState(districtParam || "all");
     const [expandedLevels, setExpandedLevels] = useState({});
+    
+    // Auto-expand first level when district is selected
+    useEffect(() => {
+        if (districtParam && districtParam !== "all") {
+            setSelectedCategory(districtParam);
+            // Auto-expand Level 1 of the selected district
+            setExpandedLevels({ [`${districtParam}-1`]: true });
+        }
+    }, [districtParam]);
     
     // Group questions by category and level
     const groupedQuestions = {
@@ -49,12 +61,21 @@ export default function QuestionsPage() {
             <header className="questions-header">
                 <div>
                     <p className="section-kicker">Question Hub</p>
-                    <h1>Select A Data City Challenge</h1>
+                    <h1>
+                        {selectedCategory === "all" 
+                            ? "All Districts" 
+                            : categories.find(c => c.id === selectedCategory)?.name || "Select A Challenge"}
+                    </h1>
                     <p>
-                        Choose a district and level, then write code to solve the challenge.
+                        {selectedCategory === "all"
+                            ? "Choose a district and level, then write code to solve the challenge."
+                            : `Explore ${categories.find(c => c.id === selectedCategory)?.name} challenges organized by difficulty levels.`}
                     </p>
                 </div>
-                <Link to="/" className="secondary-btn questions-back-btn">Back To Landing</Link>
+                <div className="header-actions">
+                    <Link to="/districts" className="secondary-btn">← All Districts</Link>
+                    <Link to="/" className="secondary-btn">Home</Link>
+                </div>
             </header>
 
             <div className="filter-bar">
