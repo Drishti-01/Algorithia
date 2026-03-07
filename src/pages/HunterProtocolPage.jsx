@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import vexaraImage from "../assets/hunters/vexara.png";
 import kaelImage from "../assets/hunters/kael.png";
@@ -35,6 +35,14 @@ const HUNTER_PORTRAITS = {
 
 const MAX_BATTLE_POINTS = 8;
 
+// Calculate time limit based on level (harder levels = less time)
+function getTimeLimitForLevel(level) {
+    const baseTime = 30; // 30 seconds for level 1
+    const decreasePerLevel = 3; // Decrease by 3 seconds per level
+    const minTime = 10; // Minimum 10 seconds even at highest levels
+    return Math.max(minTime, baseTime - (level - 1) * decreasePerLevel);
+}
+
 export default function HunterProtocolPage() {
     const [progress, setProgress] = useState(() => loadHunterProgress());
     const [level, setLevel] = useState(() => Math.max(1, progress.completedLevels + 1));
@@ -45,6 +53,8 @@ export default function HunterProtocolPage() {
     const [feedback, setFeedback] = useState(null);
     const [hunterPower, setHunterPower] = useState(MAX_BATTLE_POINTS);
     const [playerHealth, setPlayerHealth] = useState(MAX_BATTLE_POINTS);
+    const [timeRemaining, setTimeRemaining] = useState(0);
+    const [isTimerActive, setIsTimerActive] = useState(false);
 
     const hunter = useMemo(() => getHunterByLevel(level), [level]);
 
@@ -87,6 +97,39 @@ export default function HunterProtocolPage() {
         return "Awaiting your response.";
     }, [currentQuestion, feedback, hunter, phase]);
 
+    // Timer countdown effect
+    useEffect(() => {
+        if (!isTimerActive || phase !== "question" || !currentQuestion) {
+            return;
+        }
+
+        if (timeRemaining <= 0) {
+            // Time's up! Auto-submit with no answer (counts as wrong)
+            setIsTimerActive(false);
+            
+            const nextProgress = recordHunterAttempt(progress, {
+                question: currentQuestion,
+                correct: false,
+            });
+
+            setProgress(nextProgress);
+            setFeedback({
+                isCorrect: false,
+                question: currentQuestion,
+                timedOut: true,
+            });
+            setPlayerHealth((value) => Math.max(0, value - 1));
+            setPhase("feedback");
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeRemaining((prev) => Math.max(0, prev - 1));
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [isTimerActive, timeRemaining, phase, currentQuestion, progress]);
+
     const handleStartRound = () => {
         if (!hunter) {
             return;
@@ -107,12 +150,16 @@ export default function HunterProtocolPage() {
         setFeedback(null);
         setHunterPower(MAX_BATTLE_POINTS);
         setPlayerHealth(MAX_BATTLE_POINTS);
+        setTimeRemaining(getTimeLimitForLevel(level));
+        setIsTimerActive(true);
     };
 
     const handleSubmitAnswer = () => {
         if (!currentQuestion || selectedOption === null) {
             return;
         }
+
+        setIsTimerActive(false); // Stop the timer
 
         const isCorrect = selectedOption === currentQuestion.correctOption;
         const nextProgress = recordHunterAttempt(progress, {
@@ -145,6 +192,8 @@ export default function HunterProtocolPage() {
             setSelectedOption(null);
             setFeedback(null);
             setPhase("question");
+            setTimeRemaining(getTimeLimitForLevel(level)); // Reset timer for next question
+            setIsTimerActive(true); // Restart timer
             return;
         }
 
@@ -172,6 +221,8 @@ export default function HunterProtocolPage() {
         setFeedback(null);
         setHunterPower(MAX_BATTLE_POINTS);
         setPlayerHealth(MAX_BATTLE_POINTS);
+        setTimeRemaining(0);
+        setIsTimerActive(false);
         setPhase("intro");
     };
 
@@ -186,6 +237,8 @@ export default function HunterProtocolPage() {
         setFeedback(null);
         setHunterPower(MAX_BATTLE_POINTS);
         setPlayerHealth(MAX_BATTLE_POINTS);
+        setTimeRemaining(0);
+        setIsTimerActive(false);
     };
 
     const handleLevelChange = (event) => {
@@ -202,6 +255,8 @@ export default function HunterProtocolPage() {
         setFeedback(null);
         setHunterPower(MAX_BATTLE_POINTS);
         setPlayerHealth(MAX_BATTLE_POINTS);
+        setTimeRemaining(0);
+        setIsTimerActive(false);
         setPhase("intro");
     };
 
@@ -339,6 +394,15 @@ export default function HunterProtocolPage() {
                                                 <p className="hunter-dialogue">
                                                     Step into the protocol when you are ready.
                                                 </p>
+                                                <div className="timer-display" style={{ marginTop: '0.5rem' }}>
+                                                    <div className="timer-text" style={{ justifyContent: 'center' }}>
+                                                        <span className="timer-label">⏱️ Time Pressure:</span>
+                                                        <strong className="timer-value">{getTimeLimitForLevel(level)}s per question</strong>
+                                                    </div>
+                                                    <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.8rem', color: '#f1deb2', textAlign: 'center' }}>
+                                                        Higher levels = Less time! Answer quickly or lose health.
+                                                    </p>
+                                                </div>
                                                 <div className="hunter-actions">
                                                     <button
                                                         type="button"
@@ -358,6 +422,24 @@ export default function HunterProtocolPage() {
                                                 <p className="hunter-topic-chip">
                                                     Topic: {formatTopicLabel(currentQuestion.topic)} | Difficulty: {currentQuestion.difficulty}
                                                 </p>
+
+                                                {phase === "question" && (
+                                                    <div className={`timer-display ${timeRemaining <= 5 ? 'timer-warning' : ''} ${timeRemaining <= 0 ? 'timer-expired' : ''}`}>
+                                                        <div className="timer-bar-container">
+                                                            <div 
+                                                                className="timer-bar-fill" 
+                                                                style={{ 
+                                                                    width: `${(timeRemaining / getTimeLimitForLevel(level)) * 100}%`,
+                                                                    transition: 'width 1s linear'
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="timer-text">
+                                                            <span className="timer-label">Time Remaining:</span>
+                                                            <strong className="timer-value">{timeRemaining}s</strong>
+                                                        </div>
+                                                    </div>
+                                                )}
 
                                                 <div className="battle-cards-grid">
                                                     {currentQuestion.options.map((option, index) => (
@@ -390,7 +472,11 @@ export default function HunterProtocolPage() {
                                                 {phase === "feedback" && feedback ? (
                                                     <div className="arena-feedback-line">
                                                         <p className={feedback.isCorrect ? "success-text" : "error-text"}>
-                                                            {feedback.isCorrect ? `${hunter.name} lost power.` : "You lost health."}
+                                                            {feedback.timedOut 
+                                                                ? "Time's up! You lost health." 
+                                                                : feedback.isCorrect 
+                                                                    ? `${hunter.name} lost power.` 
+                                                                    : "You lost health."}
                                                         </p>
                                                         <p>{feedback.question.explanation}</p>
                                                         <button type="button" className="primary-btn" onClick={handleAdvance}>
@@ -443,42 +529,61 @@ export default function HunterProtocolPage() {
 
                     {phase === "analysis" ? (
                         <div className="hunter-phase-block">
-                            <h2>Adaptive Analysis Complete</h2>
-                            <p>
-                                Your performance has been scanned. Next hunter will target weak zones first,
-                                then test transfer under higher difficulty.
-                            </p>
-                            <p>
-                                Priority topics: {weakTopics.length > 0 ? weakTopics.map((topic) => formatTopicLabel(topic)).join(", ") : "No dominant weakness yet"}
-                            </p>
-                            <button type="button" className="primary-btn" onClick={handleNextHunter}>
-                                Face Next Hunter
-                            </button>
+                            <div className="phase-content-card">
+                                <p className="section-kicker">Level Complete</p>
+                                <h2 className="phase-title">Adaptive Analysis Complete</h2>
+                                <p className="phase-description">
+                                    Your performance has been scanned. Next hunter will target weak zones first,
+                                    then test transfer under higher difficulty.
+                                </p>
+                                {weakTopics.length > 0 && (
+                                    <div className="priority-topics-box">
+                                        <span className="priority-label">Priority Topics:</span>
+                                        <div className="topic-tags">
+                                            {weakTopics.map((topic) => (
+                                                <span key={topic} className="topic-tag">{formatTopicLabel(topic)}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="phase-actions">
+                                    <button type="button" className="primary-btn" onClick={handleNextHunter}>
+                                        Face Next Hunter
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     ) : null}
 
                     {phase === "complete" ? (
                         <div className="hunter-phase-block">
-                            <h2>Protocol Complete</h2>
-                            <p>You survived all hunter levels. Your weakness map is now your training blueprint.</p>
-                            <div className="hunter-summary-grid">
-                                {topicStats.length === 0 ? (
-                                    <p>No attempts recorded.</p>
-                                ) : (
-                                    topicStats
-                                        .sort((a, b) => b.total - a.total)
-                                        .map((row) => (
-                                            <div key={row.topic} className="hunter-topic-stat">
-                                                <strong>{formatTopicLabel(row.topic)}</strong>
-                                                <span>{row.correct} correct / {row.incorrect} incorrect</span>
-                                                <span>Mastery: {formatPercent(row.mastery)}</span>
-                                            </div>
-                                        ))
-                                )}
+                            <div className="phase-content-card">
+                                <p className="section-kicker">Victory</p>
+                                <h2 className="phase-title">Protocol Complete</h2>
+                                <p className="phase-description">
+                                    You survived all hunter levels. Your weakness map is now your training blueprint.
+                                </p>
+                                <div className="hunter-summary-grid">
+                                    {topicStats.length === 0 ? (
+                                        <p className="phase-description">No attempts recorded.</p>
+                                    ) : (
+                                        topicStats
+                                            .sort((a, b) => b.total - a.total)
+                                            .map((row) => (
+                                                <div key={row.topic} className="hunter-topic-stat">
+                                                    <strong>{formatTopicLabel(row.topic)}</strong>
+                                                    <span>{row.correct} correct / {row.incorrect} incorrect</span>
+                                                    <span>Mastery: {formatPercent(row.mastery)}</span>
+                                                </div>
+                                            ))
+                                    )}
+                                </div>
+                                <div className="phase-actions">
+                                    <button type="button" className="secondary-btn" onClick={handleRestart}>
+                                        Restart Protocol
+                                    </button>
+                                </div>
                             </div>
-                            <button type="button" className="secondary-btn" onClick={handleRestart}>
-                                Restart Protocol
-                            </button>
                         </div>
                     ) : null}
                 </article>
