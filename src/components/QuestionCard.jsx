@@ -6,9 +6,9 @@ export function QuestionCard({ question }) {
     const isQueue = question.category === "queue";
     
     const levelColors = {
-        1: '#10b981', // green
-        2: '#f59e0b', // orange
-        3: '#ef4444'  // red
+        1: '#d4af37',
+        2: '#c8952f',
+        3: '#b67534'
     };
     
     const levelLabels = {
@@ -59,10 +59,10 @@ export function QuestionCard({ question }) {
             <h3>{question.title}</h3>
             <p>{question.description}</p>
             
-            {question.group && (
-                <div style={{ 
-                    fontSize: '12px', 
-                    color: '#94a3b8', 
+                {question.group && (
+                <div style={{
+                    fontSize: '12px',
+                    color: 'rgba(229, 231, 235, 0.74)',
                     marginTop: '0.5rem',
                     fontStyle: 'italic'
                 }}>

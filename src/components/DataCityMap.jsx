@@ -11,7 +11,7 @@ const DISTRICTS = [
   { id:"graphs",   name:"Graph Nexus",    icon:"🕸", description:"The war council at the city's heart. Every path, alliance, and betrayal mapped here. Master this, master the kingdom.", difficulty:"Advanced",     x:65, y:52, color:"#c060f0" },
   { id:"hashmaps", name:"Hash Bazaar",    icon:"🗺", description:"The intelligence district where spies transmute keys into instant secrets. Nothing is ever truly lost here. O(1) or death.", difficulty:"Intermediate",  x:17, y:69, color:"#f06060" },
   { id:"heaps",    name:"Heap Citadel",   icon:"🏰", description:"An iron citadel that always surfaces the mightiest. Priority enforced by ancient law — the strongest always rises.", difficulty:"Intermediate",  x:83, y:69, color:"#40c0e0" },
-  { id:"sorting",  name:"Sort Sanctum",   icon:"⚖",  description:"The great temple of order at the southern ridge. Scholars argue endlessly — bubble, merge, quick — order is their religion.", difficulty:"Intermediate",  x:50, y:82, color:"#f09030" },
+  { id:"LinkedList",  name:"Linked Bridge",   icon:"⚖",  description:"A chain of bridges where every node points to the next. Break a link and the entire path collapses.", difficulty:"Intermediate",  x:50, y:82, color:"#f09030" },
 ];
 
 const CONNECTIONS = [
@@ -19,8 +19,8 @@ const CONNECTIONS = [
   ["stacks","graphs"],["stacks","heaps"],
   ["queues","hashmaps"],["queues","trees"],
   ["trees","heaps"],
-  ["graphs","sorting"],["graphs","heaps"],
-  ["hashmaps","sorting"],
+  ["graphs","LinkedList"],["graphs","heaps"],
+  ["hashmaps","LinkedList"],
 ];
 
 const DIFFICULTY_COLORS = {
@@ -415,17 +415,19 @@ export default function DataCityMapPage({ onBack }) {
     'arrays': 'array',
     'stacks': 'stack',
     'queues': 'queue',
-    'trees': 'linkedlist', // Using linkedlist for now
-    'graphs': 'linkedlist',
-    'hashmaps': 'array',
-    'heaps': 'stack',
-    'sorting': 'array',
+    'linkedlist': 'linkedbridge',
+    'LinkedList': 'linkedbridge',
+    'trees': 'all',
+    'graphs': 'all',
+    'hashmaps': 'all',
+    'heaps': 'all',
+    'sorting': 'all',
   };
 
   const handleNavigate = useCallback((id)=>{
     setNavigated(id);
     setTimeout(()=>{
-      const category = districtMapping[id] || 'array';
+      const category = districtMapping[id] || 'all';
       navigate(`/questions?district=${category}`);
     },900);
   },[navigate]);
