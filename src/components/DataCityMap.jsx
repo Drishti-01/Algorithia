@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import mapVideo from "../assets/videos/map2.mp4";
 
 // ─── Districts ────────────────────────────────────────────────────────────────
@@ -391,19 +392,32 @@ function NavigatingOverlay({ navigated }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DataCityMapPage({ onBack }) {
+  const navigate = useNavigate();
   const [activeId,  setActiveId]  = useState(null);
   const [navigated, setNavigated] = useState(null);
   const [entered,   setEntered]   = useState(false);
 
   useEffect(()=>{ const t=setTimeout(()=>setEntered(true),100); return ()=>clearTimeout(t); },[]);
 
+  // Map district IDs to our question categories
+  const districtMapping = {
+    'arrays': 'array',
+    'stacks': 'stack',
+    'queues': 'queue',
+    'trees': 'linkedlist', // Using linkedlist for now
+    'graphs': 'linkedlist',
+    'hashmaps': 'array',
+    'heaps': 'stack',
+    'sorting': 'array',
+  };
+
   const handleNavigate = useCallback((id)=>{
     setNavigated(id);
     setTimeout(()=>{
-      alert(`→ /district/${id}`); // replace with navigate(`/district/${id}`)
-      setNavigated(null);
+      const category = districtMapping[id] || 'array';
+      navigate(`/questions?district=${category}`);
     },900);
-  },[]);
+  },[navigate]);
 
   return (
     <div style={{

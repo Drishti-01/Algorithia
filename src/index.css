@@ -3081,3 +3081,200 @@ button:disabled,
         grid-template-columns: 1fr;
     }
 }
+
+/* ============================================
+   DISTRICT SELECTION PAGE
+   ============================================ */
+
+.district-selection-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
+    padding: 40px 20px;
+}
+
+.district-selection-header {
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+    text-align: center;
+}
+
+.header-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.district-selection-header h1 {
+    font-size: 48px;
+    color: #e2e8f0;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-description {
+    font-size: 18px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-top: 16px;
+}
+
+.districts-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    padding: 0 20px;
+}
+
+.district-card-link {
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.district-card-link:hover {
+    transform: translateY(-8px);
+}
+
+.district-card-large {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 2px solid #334155;
+    border-left: 6px solid #6366f1;
+    border-radius: 20px;
+    padding: 32px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.district-card-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.district-card-link:hover .district-card-large {
+    border-color: #475569;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.district-card-link:hover .district-card-large::before {
+    opacity: 1;
+}
+
+.district-card-icon {
+    font-size: 64px;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.district-card-title {
+    font-size: 28px;
+    color: #e2e8f0;
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+}
+
+.district-card-description {
+    color: #94a3b8;
+    font-size: 15px;
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+}
+
+.district-card-stats {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid #334155;
+    border-bottom: 1px solid #334155;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #60a5fa;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.district-card-arrow {
+    color: #6366f1;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.district-card-link:hover .district-card-arrow {
+    gap: 12px;
+    color: #818cf8;
+}
+
+.back-link-container {
+    max-width: 1200px;
+    margin: 60px auto 0 auto;
+    text-align: center;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .district-selection-header h1 {
+        font-size: 36px;
+    }
+    
+    .header-description {
+        font-size: 16px;
+    }
+    
+    .districts-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .district-card-icon {
+        font-size: 48px;
+    }
+    
+    .district-card-title {
+        font-size: 24px;
+    }
+}
