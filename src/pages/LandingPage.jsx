@@ -21,7 +21,7 @@ export default function LandingPage() {
 
                 <section id="project" className="section project-section">
                     <div className="project-shell">
-                        <p className="section-kicker">Project Description</p>
+                        <p className="section-kicker">About Data City</p>
                         <h2 className="section-title">Where Algorithms Become City Events</h2>
                         <p className="section-copy">
                             Data City is an educational platform where learners write real algorithmic logic and
@@ -29,7 +29,7 @@ export default function LandingPage() {
                             into a visual action in the city world so learners can see data movement, comparisons,
                             writes, and swaps as a concrete simulation.
                         </p>
-                        <Link to="/questions" className="gold-btn project-enter-btn">
+                        <Link to="/login" className="gold-btn project-enter-btn">
                             Enter Data City
                         </Link>
                     </div>

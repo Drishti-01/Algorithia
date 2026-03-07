@@ -35,12 +35,12 @@ function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        <p className="section-kicker">Cinematic Dark Fantasy Landing</p>
+        <p className="section-kicker">Step Into the World of Algorithms</p>
         <h1>Data City</h1>
         <p className="hero-subtitle">Write real algorithms and watch execution become a living district.</p>
 
         <div className="hero-actions">
-          <Link to="/questions" className="gold-btn">
+          <Link to="/login" className="gold-btn">
             Enter Data City
           </Link>
           <a href="#hunters" className="ghost-btn">

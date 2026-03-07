@@ -29,7 +29,10 @@ function Navbar() {
           ))}
         </div>
 
-        <Link className="nav-cta" to="/questions">Enter Data City</Link>
+        <div className="nav-route-actions">
+          <Link className="nav-cta" to="/questions">Enter Data City</Link>
+          <Link className="nav-cta nav-cta-alt" to="/hunter-protocol">Hunter Protocol</Link>
+        </div>
       </div>
     </motion.nav>
   );
