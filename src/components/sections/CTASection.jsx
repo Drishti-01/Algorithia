@@ -33,6 +33,9 @@ function CTASection() {
           <Link to="/login" className="gold-btn">
             Enter Data City
           </Link>
+          <Link to="/hunter-protocol" className="gold-btn hunter-gate-btn">
+            Start Hunter Protocol
+          </Link>
           <a href="#hunters" className="ghost-btn">
             Meet the Hunters
           </a>
