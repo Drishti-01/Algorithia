@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import vexaraImage from "../../assets/hunters/vexara.png";
 import kaelImage from "../../assets/hunters/kael.png";
 import elderootImage from "../../assets/hunters/elderoot.png";
@@ -96,6 +97,9 @@ function HunterProtocolSection() {
           Scroll to reveal each hunter in sequence. Every scene unveils combat
           profile, faction lore, and battlefield potential.
         </p>
+        <div className="hero-actions">
+          <Link to="/hunter-protocol" className="gold-btn">Start Hunter Protocol</Link>
+        </div>
       </motion.div>
 
       <div className="hunter-reveal-stack">
