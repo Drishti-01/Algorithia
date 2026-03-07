@@ -18,7 +18,7 @@ Algorithia (Data City) is an interactive learning experience that mixes a Phaser
 	git clone https://github.com/Drishti-01/Algorithia.git
 	cd Algorithia
 	```
-2. Install dependencies:
+2. Install project dependencies (this pulls everything listed in `package.json`, including Phaser, Framer Motion, Monaco, React Router, and Vite):
 	```bash
 	npm install
 	```
@@ -27,6 +27,26 @@ Algorithia (Data City) is an interactive learning experience that mixes a Phaser
 	npm run dev
 	```
 4. Visit the URL printed by Vite (usually http://localhost:5173) to explore Algorithia.
+
+## Essential npm Packages
+`npm install` installs all of these automatically, but if you need to add them individually to a fresh project or troubleshoot an environment, these are the commands (versions controlled by `package.json`):
+
+```bash
+# React core + router
+npm install react react-dom react-router-dom
+
+# Game engine
+npm install phaser
+
+# Animations
+npm install framer-motion
+
+# Editor integrations
+npm install monaco-editor @monaco-editor/react
+
+# Build tooling and dev experience
+npm install -D vite @vitejs/plugin-react eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh globals
+```
 
 ## Build & QA
 - `npm run build` bundles the production assets.
