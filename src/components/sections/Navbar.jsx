@@ -30,7 +30,7 @@ function Navbar() {
         </div>
 
         <div className="nav-route-actions">
-          <Link className="nav-cta" to="/questions">Enter Data City</Link>
+          <Link className="nav-cta" to="/login">Enter Data City</Link>
           <Link className="nav-cta nav-cta-alt" to="/hunter-protocol">Hunter Protocol</Link>
         </div>
       </div>

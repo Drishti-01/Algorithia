@@ -14,7 +14,7 @@ const DISTRICTS = [
 ];
 
 const CONNECTIONS = [
-  ["arrays","stacks"],["arrays","queues"],["arrays","trees"],["arrays","sorting"],
+  ["arrays","stacks"],["arrays","queues"],["arrays","trees"],["arrays","graphs"],
   ["stacks","graphs"],["stacks","heaps"],
   ["queues","hashmaps"],["queues","trees"],
   ["trees","heaps"],
@@ -216,16 +216,23 @@ function ConnectionLines({ activeId }) {
           <feGaussianBlur stdDeviation="0.5" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
+        <filter id="glow-line-strong">
+          <feGaussianBlur stdDeviation="1.1" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
       </defs>
       {CONNECTIONS.map(([aId,bId])=>{
         const a=gd(aId),b=gd(bId); if(!a||!b) return null;
         const isActive=activeId===aId||activeId===bId;
+        const isArraySortEdge =
+          (aId==="arrays" && bId==="sorting") || (aId==="sorting" && bId==="arrays");
+        const shouldForceGlow = isArraySortEdge && (activeId==="arrays" || activeId==="sorting");
         const activeColor=activeId===aId?a.color:b.color;
         return <line key={`${aId}-${bId}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-          stroke={isActive?activeColor:"rgba(230,185,70,0.55)"}
-          strokeWidth={isActive?"0.52":"0.24"}
-          strokeDasharray={isActive?"none":"1.6 0.85"}
-          filter={isActive?"url(#glow-line)":undefined}
+          stroke={isActive ? activeColor : "rgba(230,185,70,0.55)"}
+          strokeWidth={shouldForceGlow ? "0.7" : isActive ? "0.52" : "0.24"}
+          strokeDasharray={isActive ? "none" : "1.6 0.85"}
+          filter={shouldForceGlow ? "url(#glow-line-strong)" : isActive ? "url(#glow-line)" : undefined}
           style={{transition:"stroke 0.3s, stroke-width 0.3s"}}/>;
       })}
     </svg>
@@ -282,7 +289,7 @@ function InfoTooltip({ district }) {
 }
 
 // ─── District Node ────────────────────────────────────────────────────────────
-function DistrictNode({ district, onNavigate, onHover }) {
+function DistrictNode({ district, onNavigate, onHover, index, mapEntered }) {
   const [hov, setHov] = useState(false);
 
   return (
@@ -290,7 +297,11 @@ function DistrictNode({ district, onNavigate, onHover }) {
       onMouseEnter={()=>{ setHov(true); onHover(district.id); }}
       onMouseLeave={()=>{ setHov(false); onHover(null); }}
       onClick={()=>onNavigate(district.id)}
-      style={{position:"absolute",left:`${district.x}%`,top:`${district.y}%`,transform:"translate(-50%,-50%)",zIndex:hov?100:10,cursor:"pointer"}}
+      style={{
+        position:"absolute",left:`${district.x}%`,top:`${district.y}%`,transform:"translate(-50%,-50%)",zIndex:hov?100:10,cursor:"pointer",
+        opacity: mapEntered ? 1 : 0,
+        animation: mapEntered ? `nodePopIn 560ms cubic-bezier(0.2, 0.9, 0.28, 1.2) ${0.12 + index * 0.08}s both` : "none",
+      }}
     >
       {/* Node circle */}
       <div style={{
@@ -408,7 +419,7 @@ export default function DataCityMapPage({ onBack }) {
   return (
     <div style={{
       position:"fixed",inset:0,overflow:"hidden",
-      background:"#120c04",
+      background:"#120c04",zIndex:0,
       fontFamily:"'Cinzel','Palatino Linotype',serif",
       opacity:entered?1:0, transition:"opacity 0.8s ease",
     }}>
@@ -437,6 +448,11 @@ export default function DataCityMapPage({ onBack }) {
         @keyframes fadeIn {from{opacity:0}to{opacity:1}}
         @keyframes pulse  {from{opacity:0.6;transform:scale(1)}to{opacity:1;transform:scale(1.06)}}
         @keyframes tipIn  {from{opacity:0;transform:translateY(-48%) scale(0.95)}to{opacity:1;transform:translateY(-50%) scale(1)}}
+        @keyframes nodePopIn {
+          0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.35); filter: blur(2px); }
+          65%  { opacity: 1; transform: translate(-50%, -50%) scale(1.12); filter: blur(0); }
+          100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+        }
         @keyframes titleGlow{0%,100%{text-shadow:0 0 14px rgba(240,192,64,0.5),0 2px 4px rgba(0,0,0,0.9)}50%{text-shadow:0 0 28px rgba(240,192,64,0.8),0 2px 4px rgba(0,0,0,0.9)}}
       `}</style>
 
@@ -539,8 +555,15 @@ export default function DataCityMapPage({ onBack }) {
         <ConnectionLines activeId={activeId}/>
 
         {/* District nodes */}
-        {DISTRICTS.map(d=>(
-          <DistrictNode key={d.id} district={d} onNavigate={handleNavigate} onHover={setActiveId}/>
+        {DISTRICTS.map((d, idx)=>(
+          <DistrictNode
+            key={d.id}
+            district={d}
+            onNavigate={handleNavigate}
+            onHover={setActiveId}
+            index={idx}
+            mapEntered={entered}
+          />
         ))}
 
         {/* Navigating overlay */}

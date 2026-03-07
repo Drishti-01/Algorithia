@@ -231,7 +231,6 @@ export default function AuthPage({ onEnterCity }) {
   const [name,     setName]     = useState("");
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [confirm,  setConfirm]  = useState("");
   const [loading,  setLoading]  = useState(false);
   const [gateOpen, setGateOpen] = useState(false);
   const [mounted,  setMounted]  = useState(false);
@@ -249,22 +248,22 @@ export default function AuthPage({ onEnterCity }) {
   },[]);
 
   const switchMode = (m) => {
-    setMode(m); setName(""); setEmail(""); setPassword(""); setConfirm(""); setShake(false);
+    setMode(m); setName(""); setEmail(""); setPassword(""); setShake(false);
   };
 
   const handleSubmit = () => {
     // Validation
-    if(!email||!password||(mode==="signup"&&(!name||!confirm))){
-      setShake(true); setTimeout(()=>setShake(false),600); return;
-    }
-    if(mode==="signup"&&password!==confirm){
+    if(!email||!password||(mode==="signup"&&(!name))){
       setShake(true); setTimeout(()=>setShake(false),600); return;
     }
     setLoading(true);
-    setGateOpen(true);
     const authTimer = setTimeout(()=>{
       setLoading(false);
       setSuccess(true);
+      const gateTimer = setTimeout(()=>{
+        setGateOpen(true);
+      },600);
+      timersRef.current.push(gateTimer);
     },1400);
     timersRef.current.push(authTimer);
   };
@@ -288,6 +287,16 @@ export default function AuthPage({ onEnterCity }) {
         @keyframes spin {from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         @keyframes runeFloat{0%,100%{transform:translateY(0) rotate(0deg);opacity:0.15}50%{transform:translateY(-12px) rotate(5deg);opacity:0.35}}
         @keyframes crestPulse{0%,100%{filter:drop-shadow(0 0 8px rgba(240,192,64,0.4))}50%{filter:drop-shadow(0 0 20px rgba(240,192,64,0.8))}}
+        @keyframes sigilPulse{
+          0%,100%{
+            text-shadow:0 0 10px rgba(240,192,64,0.6),0 0 20px rgba(240,192,64,0.4);
+            transform:scale(1);
+          }
+          50%{
+            text-shadow:0 0 22px rgba(240,192,64,0.9),0 0 40px rgba(240,192,64,0.6);
+            transform:scale(1.06);
+          }
+        }
         @keyframes successBloom{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
         @keyframes modeSlide{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
       `}</style>
@@ -438,10 +447,6 @@ export default function AuthPage({ onEnterCity }) {
                 icon="✦" placeholder="your@sigil.com"/>
               <RuneInput label="Secret Rune" type="password" value={password} onChange={setPassword}
                 icon="🔐" placeholder="••••••••"/>
-              {mode==="signup"&&(
-                <RuneInput label="Confirm Rune" type="password" value={confirm} onChange={setConfirm}
-                  icon="🔐" placeholder="••••••••"/>
-              )}
             </div>
 
             {/* Forgot — only on login */}
