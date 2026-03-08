@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Banner -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,50:16213e,100:0f3460&height=200&section=header&text=Algorithia-Data City&fontSize=80&fontColor=e94560&animation=fadeIn&fontAlignY=38&desc=Where%20Algorithms%20Come%20Alive&descAlignY=60&descColor=a8b2d8" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,50:16213e,100:0f3460&height=200&section=header&text=DataCity&fontSize=80&fontColor=e94560&animation=fadeIn&fontAlignY=38&desc=Where%20Algorithms%20Come%20Alive&descAlignY=60&descColor=a8b2d8" width="100%"/>
 
 <!-- Badges -->
 <br/>
