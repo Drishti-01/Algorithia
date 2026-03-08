@@ -1,278 +1,412 @@
-🌆 Algorithia — Where Algorithms Come Alive
+<div align="center">
 
-Algorithia transforms algorithm learning from static diagrams into an interactive world where code becomes a living simulation.
+<!-- Banner -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,50:16213e,100:0f3460&height=200&section=header&text=Algorithia&fontSize=80&fontColor=e94560&animation=fadeIn&fontAlignY=38&desc=Where%20Algorithms%20Come%20Alive&descAlignY=60&descColor=a8b2d8" width="100%"/>
 
-Algorithia is an interactive algorithm learning platform where students write real code and watch it execute step-by-step inside a simulated city of data structures.
+<!-- Badges -->
+<br/>
 
-Instead of memorizing algorithms from textbooks or watching predefined animations, users experience how algorithms behave in real time through a visual environment called Data City.
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Phaser](https://img.shields.io/badge/Phaser-3.90-8B0000?style=for-the-badge&logo=javascript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.x-000000?style=for-the-badge&logo=express&logoColor=white)
+![Monaco](https://img.shields.io/badge/Monaco_Editor-0.55-0078D7?style=for-the-badge&logo=visualstudiocode&logoColor=white)
 
-🎯 The Problem
+<br/>
 
-Learning Data Structures and Algorithms is one of the biggest challenges for students because:
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
 
-Algorithms are abstract and difficult to visualize
+<br/>
 
-Most resources rely on static diagrams or pseudocode
+> **Algorithia** transforms algorithm learning from static diagrams into an interactive world  
+> where code becomes a **living simulation** — inside a city built from data structures.
 
-Traditional visualizers only show predefined animations
+<br/>
 
-Students rarely see how their own code actually executes
+[🚀 Get Started](#-getting-started) · [🏙️ Explore Data City](#️-welcome-to-data-city) · [✨ Features](#-key-features) · [🤖 AI API](#-ai-analysis-api) · [🤝 Contributors](#-contributors)
 
-This leads to a gap between understanding algorithm logic and writing correct code.
+</div>
 
-💡 Our Solution
+---
 
-Algorithia bridges this gap by converting user-written code into a dynamic visual simulation.
+## 📖 Table of Contents
 
-The system interprets algorithm logic and maps each operation into actions inside a simulated world.
+- [🎯 The Problem](#-the-problem)
+- [💡 Our Solution](#-our-solution)
+- [🏙️ Welcome to Data City](#️-welcome-to-data-city)
+- [🎮 Core User Experience](#-core-user-experience)
+- [✨ Key Features](#-key-features)
+- [🧠 Why Algorithia is Different](#-why-algorithia-is-different)
+- [🏗️ System Architecture](#️-system-architecture)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [🚀 Getting Started](#-getting-started)
+- [📊 Available Districts](#-available-districts)
+- [🤖 AI Analysis API](#-ai-analysis-api)
+- [🎓 Educational Impact](#-educational-impact)
+- [🔮 Future Enhancements](#-future-enhancements)
+- [🤝 Contributors](#-contributors)
 
-User Code
-   ↓
-Execution Parser
-   ↓
-Execution Trace
-   ↓
-Simulation Engine
-   ↓
-Real-Time Visualization
+---
 
-Every comparison, swap, loop iteration, or data structure operation becomes a visual event inside the environment.
+## 🎯 The Problem
 
-This allows learners to see their algorithm thinking in action.
+<div align="center">
 
-🏙️ Welcome to Data City
+> Learning Data Structures & Algorithms is one of the **biggest challenges** for students
 
-Data City is the central environment of Algorithia.
+</div>
 
-Each data structure exists as a district inside the city, representing how it behaves logically.
+Most learners hit a wall because:
 
-District	Concept
-Array District	Sequential memory and indexing
-LinkedList Harbor	Node connections and traversal
-Stack Tower	Last-In-First-Out operations
-Queue Lane	First-In-First-Out processing
+| Pain Point | Reality |
+|:---:|:---|
+| 🧩 **Abstract Concepts** | Algorithms are invisible processes — hard to picture in your head |
+| 📄 **Static Resources** | Textbooks and diagrams freeze the action at a single moment |
+| 🎬 **Pre-baked Animations** | Traditional visualizers play the same clip regardless of your code |
+| 🚫 **No Personal Connection** | Students never see *their own* code execute step-by-step |
 
-Each district contains interactive coding challenges that teach algorithmic thinking through visualization.
+This creates a critical gap: students understand *what* an algorithm does but struggle to write *correct code* for it.
 
-🎮 Core User Experience
+---
 
-The learning flow in Algorithia is designed as an interactive journey.
+## 💡 Our Solution
 
-Step 1 — Choose a Challenge
+**Algorithia bridges this gap** by converting user-written code into a dynamic visual simulation.
 
-Users select a problem from the Question Hub inside a district.
+```
+  📝 User Code
+       │
+       ▼
+  �� Execution Parser
+       │
+       ▼
+  📋 Execution Trace
+       │
+       ▼
+  ⚙️  Simulation Engine
+       │
+       ▼
+  🎮 Real-Time Visualization
+```
 
-Step 2 — Write Code
+Every **comparison**, **swap**, **loop iteration**, or **data structure operation** becomes a visual event inside the environment — allowing learners to see their algorithm *thinking in action*.
 
-Students write their solution inside the Monaco Editor, the same editor used in VS Code.
+---
 
-Step 3 — Run Simulation
+## 🏙️ Welcome to Data City
 
-The platform parses the code and generates an execution trace.
+<div align="center">
 
-Step 4 — Watch the Algorithm Execute
+*Data City is the central environment of Algorithia.*  
+*Each data structure exists as a **district** inside the city, representing how it behaves logically.*
 
-The simulation engine visualizes the algorithm line by line inside the environment.
+</div>
 
-Step 5 — Get Instant Feedback
+<br/>
 
-The system validates the solution and provides AI-powered analysis of performance.
+| 🏘️ District | 🗺️ Concept | 🎯 Focus Area |
+|:---:|:---:|:---|
+| 🟦 **Array District** | Sequential memory & indexing | Traversal, Sorting, Searching |
+| ⚓ **LinkedList Harbor** | Node connections & traversal | Pointers, Dynamic structures |
+| 🗼 **Stack Tower** | Last-In-First-Out operations | Push, Pop, Peek |
+| 🛣️ **Queue Lane** | First-In-First-Out processing | Enqueue, Dequeue, Front/Rear |
 
-✨ Key Features
-🌆 Interactive Data Structure Districts
+Each district contains **interactive coding challenges** that teach algorithmic thinking through visualization.
 
-Explore algorithms inside themed environments representing different data structures.
+---
 
-🧠 Real-Time Code Execution Visualization
+## 🎮 Core User Experience
 
-Watch your algorithm execute step-by-step with visual feedback.
+The learning flow in Algorithia is designed as an **immersive interactive journey**:
 
-💻 Professional Code Editor
+```
+  ┌─────────────────────────────────────────────────────────┐
+  │                                                         │
+  │  1️⃣  Choose a Challenge   →  Question Hub in a district │
+  │               ↓                                         │
+  │  2️⃣  Write Code           →  Monaco Editor (VS Code)    │
+  │               ↓                                         │
+  │  3️⃣  Run Simulation       →  Parser generates trace     │
+  │               ↓                                         │
+  │  4️⃣  Watch It Execute     →  Line-by-line visualization │
+  │               ↓                                         │
+  │  5️⃣  Get Instant Feedback →  AI-powered analysis        │
+  │                                                         │
+  └─────────────────────────────────────────────────────────┘
+```
 
-Powered by Monaco Editor, providing a real coding experience.
+---
 
-🎮 Game Engine Simulation
+## ✨ Key Features
 
-Algorithms are visualized using Phaser, enabling dynamic animation and interaction.
+<div align="center">
 
-🤖 AI-Powered Analysis Engine
+| Feature | Description |
+|:---:|:---|
+| 🌆 **Interactive Districts** | Explore algorithms inside themed city environments |
+| 🧠 **Real-Time Visualization** | Watch your algorithm execute step-by-step with live feedback |
+| 💻 **Monaco Code Editor** | Professional VS Code-powered editor for a real coding experience |
+| 🎮 **Game Engine Simulation** | Phaser-powered dynamic animations and interactions |
+| 🤖 **AI Analysis Engine** | Adaptive AI tracks learning patterns and adjusts difficulty |
+| ⚡ **Instant Validation** | Immediate correctness and performance feedback |
 
-Background AI system tracks learning patterns and adapts difficulty accordingly.
+</div>
 
-⚡ Instant Solution Validation
+---
 
-Users receive immediate feedback on correctness and performance.
+## 🧠 Why Algorithia is Different
 
-🧠 Why Algorithia is Different
+<div align="center">
 
-Traditional algorithm visualizers show predefined animations.
+*Traditional algorithm visualizers show predefined animations.*  
+*Algorithia instead **interprets actual user code**.*
 
-Algorithia instead interprets actual user code.
+</div>
 
-Traditional Tools	Algorithia
-Pre-recorded animations	Real code execution
-Static diagrams	Interactive simulation
-Passive learning	Active experimentation
-No personalization	Adaptive AI feedback
+<br/>
 
-Algorithia transforms algorithms from abstract concepts into observable systems.
+| ❌ Traditional Tools | ✅ Algorithia |
+|:---|:---|
+| Pre-recorded animations | Real code execution |
+| Static diagrams | Interactive simulation |
+| Passive learning | Active experimentation |
+| No personalization | Adaptive AI feedback |
+| One-size-fits-all | Personalized difficulty |
 
-🏗️ System Architecture
+> Algorithia transforms algorithms from **abstract concepts** into **observable systems**.
 
-Algorithia consists of three major layers.
+---
 
-Frontend (React + Phaser)
-        ↓
-Execution Engine (Code Parser)
-        ↓
-AI Analysis Engine (Express Backend)
-Execution Flow
-User writes code
-       ↓
-Parser identifies operations
-       ↓
-Execution trace generated
-       ↓
-Simulation engine maps events
-       ↓
-Visualization inside Data City
+## 🏗️ System Architecture
 
-This architecture allows code logic to directly control the simulation.
+```
+┌───────────────────────────────────────────────┐
+│           Frontend (React + Phaser)            │
+│  ┌──────────┐  ┌──────────┐  ┌─────────────┐  │
+│  │  Monaco  │  │  Phaser  │  │Framer Motion│  │
+│  │  Editor  │  │  Scenes  │  │ Animations  │  │
+│  └──────────┘  └──────────┘  └─────────────┘  │
+└──────────────────────┬────────────────────────┘
+                       │  HTTP / REST
+┌──────────────────────▼────────────────────────┐
+│         Execution Engine (Code Parser)         │
+│  ┌────────────────┐  ┌────────────────────┐   │
+│  │ Operation      │  │  Execution Trace   │   │
+│  │ Detector       │  │  Generator         │   │
+│  └────────────────┘  └────────────────────┘   │
+└──────────────────────┬────────────────────────┘
+                       │
+┌──────────────────────▼────────────────────────┐
+│       AI Analysis Engine (Express Backend)     │
+│  ┌──────────────┐  ┌──────────┐  ┌─────────┐  │
+│  │  Behavior    │  │Adaptive  │  │Strategy │  │
+│  │  Analyzer    │  │Difficulty│  │Engine   │  │
+│  └──────────────┘  └──────────┘  └─────────┘  │
+└───────────────────────────────────────────────┘
+```
 
-🛠️ Tech Stack
-Frontend
-Technology	Purpose
-React 19 + Vite	UI architecture and fast development
-Phaser 3.90	Game-style visualization engine
-Monaco Editor	Code editing environment
-Framer Motion	UI animations and transitions
-Backend (AI Engine)
-Technology	Purpose
-Node.js + Express	REST API and analysis engine
-AI Analysis Engines	Learning behavior analysis
-Adaptive Difficulty	Challenge progression system
+---
 
-The AI system tracks:
+## 🛠️ Tech Stack
 
-solving patterns
+<details>
+<summary><b>🖥️ Frontend</b></summary>
 
-attempt frequency
+<br/>
 
-time taken
+| Technology | Version | Purpose |
+|:---:|:---:|:---|
+| ⚛️ **React** | 19 | UI architecture and component system |
+| ⚡ **Vite** | 8.x | Fast development server and build tool |
+| 🎮 **Phaser** | 3.90 | Game-style visualization engine |
+| 💻 **Monaco Editor** | 0.55 | VS Code-powered code editing |
+| 🎨 **Framer Motion** | 11.x | Smooth UI animations and transitions |
+| 🔗 **React Router** | 7.x | Client-side routing |
 
-difficulty adaptation
+</details>
 
-📁 Project Structure
+<details>
+<summary><b>⚙️ Backend (AI Engine)</b></summary>
+
+<br/>
+
+| Technology | Version | Purpose |
+|:---:|:---:|:---|
+| 🟢 **Node.js** | 20+ | Server runtime |
+| 🚂 **Express** | 4.x | REST API framework |
+| 🤖 **AI Engines** | custom | Learning behavior analysis |
+| 📊 **Adaptive System** | custom | Challenge progression and difficulty |
+
+**The AI system tracks:**
+- 🔍 Solving patterns
+- 🔁 Attempt frequency
+- ⏱️ Time taken per problem
+- 📈 Difficulty adaptation curve
+
+</details>
+
+---
+
+## 📁 Project Structure
+
+```
 Algorithia/
 │
-├── src/                      # Frontend source
-│   ├── components/           # React UI components
-│   ├── engine/               # Code parser & interpreter
-│   ├── game/                 # Phaser simulation scenes
-│   │   └── districts/        # Array, LinkedList, Stack, Queue scenes
-│   ├── pages/                # Application routes
-│   ├── data/                 # Questions and content
-│   └── simulation/           # Execution utilities
+├── 📂 src/                      # Frontend source
+│   ├── 📂 components/           # React UI components
+│   ├── 📂 engine/               # Code parser & interpreter
+│   ├── �� game/                 # Phaser simulation scenes
+│   │   └── 📂 districts/        # Array, LinkedList, Stack, Queue
+│   ├── 📂 pages/                # Application routes
+│   ├── 📂 data/                 # Questions and content
+│   └── 📂 simulation/           # Execution utilities
 │
-├── server/                   # Backend AI Engine
-│   ├── engines/              # AI analysis engines
-│   ├── services/             # Analysis orchestration
-│   ├── routes/               # API endpoints
-│   └── server.js             # Express server
+├── 📂 server/                   # Backend AI Engine
+│   ├── 📂 engines/              # AI analysis engines
+│   ├── 📂 services/             # Analysis orchestration
+│   ├── 📂 routes/               # API endpoints
+│   └── 📄 server.js             # Express server entry point
 │
-├── AI_ENGINE_SETUP.md
-├── AI_ENGINE_SUMMARY.md
-└── COMPLETE_PROJECT_STATUS.md
-🚀 Getting Started
-Prerequisites
+├── 📄 index.html
+├── 📄 vite.config.js
+└── 📄 package.json
+```
 
-Node.js 20+
+---
 
-npm 10+
+## 🚀 Getting Started
 
-Git
+### Prerequisites
 
-Run Frontend
+![Node.js](https://img.shields.io/badge/Node.js-≥20-339933?style=flat-square&logo=nodedotjs&logoColor=white)
+![npm](https://img.shields.io/badge/npm-≥10-CB3837?style=flat-square&logo=npm&logoColor=white)
+![Git](https://img.shields.io/badge/Git-required-F05032?style=flat-square&logo=git&logoColor=white)
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Drishti-01/Algorithia.git
+cd Algorithia
+```
+
+### 2️⃣ Run the Frontend
+
+```bash
 npm install
 npm run dev
+```
 
-Frontend runs on:
+<div align="center">
 
-http://localhost:5173
-Run Backend AI Engine
+🌐 Frontend runs at → **[http://localhost:5173](http://localhost:5173)**
+
+</div>
+
+### 3️⃣ Run the Backend AI Engine
+
+```bash
 cd server
 npm install
 npm start
+```
 
-Backend runs on:
+<div align="center">
 
-http://localhost:5000
-🧪 Testing
-Frontend
+🤖 Backend API runs at → **[http://localhost:5000](http://localhost:5000)**
+
+</div>
+
+---
+
+## 🧪 Testing
+
+<details>
+<summary><b>Frontend Testing</b></summary>
+
+```bash
 npm run dev
+# Then open http://localhost:5173 in your browser
+```
 
-Open:
+</details>
 
-http://localhost:5173
-Backend
+<details>
+<summary><b>Backend Testing</b></summary>
+
+```bash
 cd server
 npm test
+```
 
-Or manually test:
+Or manually verify the health endpoint:
 
+```bash
 curl http://localhost:5000/api/analyze/health
-📊 Available Districts
-Array District
+```
 
-Array Traversal
+</details>
 
-Find Maximum
+---
 
-Bubble Sort
+## 📊 Available Districts
 
-Binary Search
+<details open>
+<summary><b>🟦 Array District</b></summary>
 
-LinkedList Harbor
+- ✅ Array Traversal
+- ✅ Find Maximum
+- ✅ Bubble Sort
+- ✅ Binary Search
 
-Traverse Linked List
+</details>
 
-Find Maximum
+<details open>
+<summary><b>⚓ LinkedList Harbor</b></summary>
 
-Count Nodes
+- ✅ Traverse Linked List
+- ✅ Find Maximum
+- ✅ Count Nodes
+- ✅ Search Node
+- ✅ Doubly Linked List
+- ✅ Circular Linked List
 
-Search Node
+</details>
 
-Doubly Linked List
+<details open>
+<summary><b>🗼 Stack Tower</b></summary>
 
-Circular Linked List
+- ✅ Push and Pop Operations
+- ✅ Peek Operation
+- ✅ Reverse Array using Stack
+- ✅ isEmpty Check
 
-Stack Tower
+</details>
 
-Push and Pop Operations
+<details open>
+<summary><b>🛣️ Queue Lane</b></summary>
 
-Peek Operation
+- ✅ Enqueue and Dequeue
+- ✅ Peek Front
+- ✅ Front and Rear Access
+- ✅ isEmpty Check
 
-Reverse Array
+</details>
 
-isEmpty Check
+---
 
-Queue Lane
+## 🤖 AI Analysis API
 
-Enqueue and Dequeue
-
-Peek Front
-
-Front and Rear Access
-
-isEmpty Check
-
-🤖 AI Analysis API
-POST /api/analyze
+### `POST /api/analyze`
 
 Analyze user performance after solving a problem.
 
-Example request:
+**Request Body:**
 
+```json
 {
   "userId": "user-123",
   "questionId": "array-traversal",
@@ -281,58 +415,101 @@ Example request:
   "incorrectAttempts": 1,
   "success": true
 }
+```
 
-Example response:
+**Response:**
 
+```json
 {
   "success": true,
   "data": {
-    "behavior": { "behaviorScore": 85 },
+    "behavior":       { "behaviorScore": 85 },
     "exploitability": { "score": 35, "riskLevel": "low-risk" },
-    "strategy": { "strategyType": "support" },
-    "nextQuestion": { "id": "bubble-sort" },
-    "escalation": { "stage": 2 }
+    "strategy":       { "strategyType": "support" },
+    "nextQuestion":   { "id": "bubble-sort" },
+    "escalation":     { "stage": 2 }
   }
 }
-🎓 Educational Impact
+```
 
-Algorithia helps students:
+---
 
-✔ Visualize algorithm execution
-✔ Understand data structure behavior
-✔ Debug step-by-step logic
-✔ Improve algorithm intuition
-✔ Learn through interaction rather than memorization
+## 🎓 Educational Impact
 
-🔮 Future Enhancements
+<div align="center">
 
-Planned expansions include:
+*Algorithia helps students bridge theory and practice through active learning.*
 
-Tree and Graph visualization districts
+</div>
 
-User progress tracking
+<br/>
 
-Performance analytics dashboard
+- ✔️ **Visualize** algorithm execution in real time
+- ✔️ **Understand** data structure behavior through interaction
+- ✔️ **Debug** step-by-step logic inside a living city
+- ✔️ **Improve** algorithm intuition through experience
+- ✔️ **Learn** through doing, not memorizing
 
-Multiplayer collaborative learning
+---
 
-AI-generated hints
+## 🔮 Future Enhancements
 
-Persistent learning profiles
+| 🚀 Feature | 📋 Description |
+|:---:|:---|
+| 🌳 **Tree & Graph Districts** | New city areas for tree traversal and graph algorithms |
+| 📈 **Progress Tracking** | Persistent user profiles and learning history |
+| 📊 **Analytics Dashboard** | Performance metrics and improvement insights |
+| 👥 **Multiplayer Mode** | Collaborative and competitive algorithm challenges |
+| 💡 **AI-Generated Hints** | Smart hints powered by user behavior data |
+| 🧩 **Custom Challenges** | Let users create and share their own problems |
 
-🤝 Contributors
+---
 
-Drishti
+## 🤝 Contributors
 
-Vaibhavi Jha
+<div align="center">
 
-Esha
+Thanks to these amazing people for building Algorithia! 💙
 
-Aditya Garg
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Drishti-01">
+        <img src="https://avatars.githubusercontent.com/Drishti-01" width="80px" style="border-radius:50%"/><br/>
+        <sub><b>Drishti</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <img src="https://ui-avatars.com/api/?name=Vaibhavi+Jha&background=e94560&color=fff&size=80&rounded=true" width="80px"/><br/>
+      <sub><b>Vaibhavi Jha</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://ui-avatars.com/api/?name=Esha&background=0f3460&color=fff&size=80&rounded=true" width="80px"/><br/>
+      <sub><b>Esha</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://ui-avatars.com/api/?name=Aditya+Garg&background=16213e&color=fff&size=80&rounded=true" width="80px"/><br/>
+      <sub><b>Aditya Garg</b></sub>
+    </td>
+  </tr>
+</table>
 
+</div>
 
-🌟 Final Thought
+---
 
-Algorithms shouldn’t just be studied — they should be experienced.
+<div align="center">
 
-Welcome to Data City. 🏙️
+### 🌟 Final Thought
+
+*Algorithms shouldn't just be studied — they should be **experienced**.*
+
+**Welcome to Data City.** 🏙️
+
+<br/>
+
+---
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,50:16213e,100:0f3460&height=100&section=footer" width="100%"/>
+
+</div>
