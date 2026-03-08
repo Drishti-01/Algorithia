@@ -4,19 +4,22 @@
  */
 
 export function analyzePerformance(data) {
-    const { timeTaken, incorrectAttempts, questionDifficulty, currentLevel } = data;
+    const { timeTaken, incorrectAttempts, questionDifficulty } = data;
     
     // Base score calculation
     let performanceScore = 100;
     
     // Time penalties (adjusted by difficulty)
     const timeThresholds = {
-        'Easy': 30,
-        'Medium': 60,
-        'Hard': 120
+        easy: 30,
+        medium: 60,
+        hard: 120
     };
-    
-    const threshold = timeThresholds[questionDifficulty] || 60;
+
+    const normalizedDifficulty = typeof questionDifficulty === 'string'
+        ? questionDifficulty.trim().toLowerCase()
+        : '';
+    const threshold = timeThresholds[normalizedDifficulty] ?? timeThresholds.medium;
     if (timeTaken > threshold) {
         const penalty = Math.floor((timeTaken - threshold) / 10) * 2;
         performanceScore -= penalty;

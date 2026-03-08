@@ -3,26 +3,14 @@
  * Recommends next question based on strategy
  */
 
-// Load questions from frontend
-let QUESTIONS = null;
+import { QUESTIONS as FRONTEND_QUESTIONS } from '../../src/data/questions.js';
 
-function loadQuestions() {
-    if (!QUESTIONS) {
-        try {
-            const questionsModule = require('../../src/data/questions.js');
-            QUESTIONS = questionsModule.QUESTIONS || [];
-        } catch (error) {
-            console.error('Failed to load questions:', error.message);
-            QUESTIONS = [];
-        }
-    }
-    return QUESTIONS;
-}
+const QUESTIONS = Array.isArray(FRONTEND_QUESTIONS) ? FRONTEND_QUESTIONS : [];
 
-module.exports = function(data) {
+export default function adaptiveTrapEngine(data) {
     const { questionId, strategy, questionCategory } = data;
     
-    const questions = loadQuestions();
+    const questions = QUESTIONS;
     
     if (questions.length === 0) {
         return { nextQuestion: null };
@@ -80,4 +68,4 @@ module.exports = function(data) {
             category: selectedQuestion.category || 'array'
         }
     };
-};
+}

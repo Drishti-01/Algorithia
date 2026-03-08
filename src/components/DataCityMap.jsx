@@ -402,6 +402,19 @@ function NavigatingOverlay({ navigated }) {
 }
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
+const DISTRICT_MAPPING = {
+  arrays: 'array',
+  stacks: 'stack',
+  queues: 'queue',
+  linkedlist: 'linkedbridge',
+  LinkedList: 'linkedbridge',
+  trees: 'all',
+  graphs: 'all',
+  hashmaps: 'all',
+  heaps: 'all',
+  sorting: 'all',
+};
+
 export default function DataCityMapPage({ onBack }) {
   const navigate = useNavigate();
   const [activeId,  setActiveId]  = useState(null);
@@ -411,23 +424,10 @@ export default function DataCityMapPage({ onBack }) {
   useEffect(()=>{ const t=setTimeout(()=>setEntered(true),100); return ()=>clearTimeout(t); },[]);
 
   // Map district IDs to our question categories
-  const districtMapping = {
-    'arrays': 'array',
-    'stacks': 'stack',
-    'queues': 'queue',
-    'linkedlist': 'linkedbridge',
-    'LinkedList': 'linkedbridge',
-    'trees': 'all',
-    'graphs': 'all',
-    'hashmaps': 'all',
-    'heaps': 'all',
-    'sorting': 'all',
-  };
-
   const handleNavigate = useCallback((id)=>{
     setNavigated(id);
     setTimeout(()=>{
-      const category = districtMapping[id] || 'all';
+      const category = DISTRICT_MAPPING[id] || 'all';
       navigate(`/questions?district=${category}`);
     },900);
   },[navigate]);

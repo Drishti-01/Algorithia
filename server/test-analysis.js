@@ -3,7 +3,7 @@
  * Tests all engines with sample data
  */
 
-const analysisService = require('./services/analysis.service');
+import { runAnalysis } from './services/analysis.service.js';
 
 console.log('=================================');
 console.log('AI Engine Test Suite');
@@ -12,7 +12,7 @@ console.log('=================================\n');
 // Test Case 1: Strong Performance
 console.log('Test 1: Strong Performance');
 console.log('---------------------------');
-const test1 = analysisService.runAnalysis({
+const test1 = runAnalysis({
     userId: 'test-user-1',
     questionId: 'array-traversal',
     questionCategory: 'array',
@@ -34,7 +34,7 @@ console.log('\n');
 // Test Case 2: Moderate Performance
 console.log('Test 2: Moderate Performance');
 console.log('---------------------------');
-const test2 = analysisService.runAnalysis({
+const test2 = runAnalysis({
     userId: 'test-user-2',
     questionId: 'bubble-sort',
     questionCategory: 'array',
@@ -56,7 +56,7 @@ console.log('\n');
 // Test Case 3: Weak Performance
 console.log('Test 3: Weak Performance');
 console.log('---------------------------');
-const test3 = analysisService.runAnalysis({
+const test3 = runAnalysis({
     userId: 'test-user-3',
     questionId: 'binary-search',
     questionCategory: 'array',
@@ -82,7 +82,7 @@ const userId = 'test-user-4';
 
 // Simulate 5 attempts
 for (let i = 1; i <= 5; i++) {
-    const result = analysisService.runAnalysis({
+    const result = runAnalysis({
         userId,
         questionId: `question-${i}`,
         questionCategory: 'linkedlist',
@@ -106,7 +106,7 @@ const escalationUserId = 'test-user-5';
 
 // Simulate 6 consecutive successes
 for (let i = 1; i <= 6; i++) {
-    const result = analysisService.runAnalysis({
+    const result = runAnalysis({
         userId: escalationUserId,
         questionId: `question-${i}`,
         questionCategory: 'stack',
@@ -126,7 +126,7 @@ console.log('\n');
 // Test Case 6: Full Analysis Output
 console.log('Test 6: Complete Analysis Structure');
 console.log('---------------------------');
-const fullTest = analysisService.runAnalysis({
+const fullTest = runAnalysis({
     userId: 'test-user-6',
     questionId: 'queue-enqueue-dequeue',
     questionCategory: 'queue',

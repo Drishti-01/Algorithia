@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import HunterShowcase from "./HunterShowcase";
@@ -88,6 +88,34 @@ const hunters = [
 
 function HunterProtocolSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [assetsReady, setAssetsReady] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof Image === "undefined") {
+      setAssetsReady(true);
+      return () => {};
+    }
+
+    let cancelled = false;
+    const preloaders = hunters.map(({ imagePath }) =>
+      new Promise((resolve) => {
+        const img = new Image();
+        img.src = imagePath;
+        img.onload = resolve;
+        img.onerror = resolve;
+      })
+    );
+
+    Promise.all(preloaders).then(() => {
+      if (!cancelled) {
+        setAssetsReady(true);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleHunterFocus = useCallback((index) => {
     setActiveIndex((prev) => (prev === index ? prev : index));
@@ -114,15 +142,47 @@ function HunterProtocolSection() {
       </motion.div>
 
       <div className="hunter-wrapper">
-        {hunters.map((hunter, index) => (
-          <HunterShowcase
-            key={hunter.name}
-            hunter={hunter}
-            index={index}
-            onActivate={handleHunterFocus}
-            activeIndex={activeIndex}
-          />
-        ))}
+        {!assetsReady ? (
+          <div
+            className="hunter-loading"
+            aria-live="polite"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "4rem 0",
+              gap: "1rem",
+              color: "#f0c040",
+            }}
+          >
+            <div
+              className="hunter-loading-ring"
+              aria-hidden="true"
+              style={{
+                width: "48px",
+                height: "48px",
+                border: "3px solid rgba(240,192,64,0.2)",
+                borderTopColor: "#f0c040",
+                borderRadius: "50%",
+                animation: "spin 0.8s linear infinite",
+              }}
+            />
+            <p style={{ fontFamily: "'Cinzel', serif", letterSpacing: "0.12em" }}>
+              Summoning hunter dossiers…
+            </p>
+          </div>
+        ) : (
+          hunters.map((hunter, index) => (
+            <HunterShowcase
+              key={hunter.name}
+              hunter={hunter}
+              index={index}
+              onActivate={handleHunterFocus}
+              activeIndex={activeIndex}
+            />
+          ))
+        )}
       </div>
     </section>
   );

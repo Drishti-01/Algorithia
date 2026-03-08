@@ -2,9 +2,10 @@
  * Analysis API Route
  */
 
-const express = require('express');
+import express from 'express';
+import { runAnalysis } from '../services/analysis.service.js';
+
 const router = express.Router();
-const analysisService = require('../services/analysis.service');
 
 /**
  * POST /api/analyze
@@ -22,7 +23,7 @@ router.post('/analyze', (req, res) => {
         }
         
         // Run analysis
-        const result = analysisService.runAnalysis({
+        const result = runAnalysis({
             questionId,
             questionCategory: questionCategory || 'array',
             timeTaken,
@@ -54,4 +55,4 @@ router.get('/analyze/health', (req, res) => {
     });
 });
 
-module.exports = router;
+export default router;

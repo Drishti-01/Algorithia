@@ -4,7 +4,7 @@ import { EditorPanel } from "../components/EditorPanel";
 import { GamePanel } from "../components/GamePanel";
 import { EnhancedAIRecommendation } from "../components/EnhancedAIRecommendation";
 import { createProgramTemplate } from "../constants/template";
-import { QUESTIONS_BY_ID } from "../data/questions";
+import { QUESTIONS, QUESTIONS_BY_ID } from "../data/questions";
 import { generateSimulationSteps } from "../engine/stepGenerator";
 import { gameBridge } from "../game/gameBridge";
 import { SimulationError } from "../simulation/SimulationError";

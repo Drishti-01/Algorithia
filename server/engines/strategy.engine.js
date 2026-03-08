@@ -3,7 +3,7 @@
  * Determines teaching strategy based on exploitability
  */
 
-module.exports = function(data) {
+export default function strategyEngine(data) {
     const { exploitabilityScore } = data;
     
     let strategy;
@@ -20,4 +20,4 @@ module.exports = function(data) {
     }
     
     return { strategy };
-};
+}

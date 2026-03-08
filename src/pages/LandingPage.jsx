@@ -1,9 +1,11 @@
+import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
 import CTASection from "../components/sections/CTASection";
 import Footer from "../components/sections/Footer";
 import HeroSection from "../components/sections/HeroSection";
-import HunterProtocolSection from "../components/sections/HunterProtocolSection";
 import Navbar from "../components/sections/Navbar";
+
+const HunterProtocolSection = lazy(() => import("../components/sections/HunterProtocolSection"));
 
 export default function LandingPage() {
     return (
@@ -35,7 +37,16 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                <HunterProtocolSection />
+                <Suspense
+                    fallback={(
+                        <section className="hunters-section" style={{ padding: "4rem 0", textAlign: "center" }}>
+                            <p className="section-kicker">Hunter Protocol</p>
+                            <p style={{ color: "#f0c040", letterSpacing: "0.18em" }}>Loading dossiers…</p>
+                        </section>
+                    )}
+                >
+                    <HunterProtocolSection />
+                </Suspense>
                 <CTASection />
             </main>
 

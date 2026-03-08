@@ -316,8 +316,8 @@ function HunterShowcase({ hunter, index, onActivate, activeIndex }) {
                   src={hunter.imagePath}
                   alt={hunter.name}
                   className="hunter-image"
-                  loading="eager"
-                  decoding="sync"
+                  loading="lazy"
+                  decoding="async"
                   initial={{ opacity: 0, y: 22, scale: 0.92 }}
                   animate={shouldReveal ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 22, scale: 0.92 }}
                   transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}

@@ -356,8 +356,7 @@ export default function AuthPage({ onEnterCity }) {
             textAlign:"center",marginBottom:0,
             animation:"crestPulse 4s ease-in-out infinite",
           }}>
-            <div style={{
-              display:"inline-block",
+              <div style={{
               width:64,height:64,
               borderRadius:"50%",
               background:"radial-gradient(circle at 40% 38%, rgba(240,192,64,0.25) 0%, rgba(14,10,4,0.9) 70%)",

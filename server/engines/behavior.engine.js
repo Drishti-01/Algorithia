@@ -3,7 +3,7 @@
  * Calculates behavior score based on performance
  */
 
-module.exports = function(data) {
+export default function behaviorEngine(data) {
     const { timeTaken, incorrectAttempts } = data;
     
     // Start with 100 points
@@ -21,4 +21,4 @@ module.exports = function(data) {
     behaviorScore = Math.max(0, Math.min(100, behaviorScore));
     
     return { behaviorScore };
-};
+}

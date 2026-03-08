@@ -3,15 +3,15 @@
  * Runs 4 simple AI engines in sequence
  */
 
-const behaviorEngine = require('../engines/behavior.engine');
-const exploitabilityEngine = require('../engines/exploitability.engine');
-const strategyEngine = require('../engines/strategy.engine');
-const adaptiveTrapEngine = require('../engines/adaptive-trap.engine');
+import behaviorEngine from '../engines/behavior.engine.js';
+import exploitabilityEngine from '../engines/exploitability.engine.js';
+import strategyEngine from '../engines/strategy.engine.js';
+import adaptiveTrapEngine from '../engines/adaptive-trap.engine.js';
 
 /**
  * Run analysis pipeline
  */
-function runAnalysis(data) {
+export function runAnalysis(data) {
     const { questionId, questionCategory, timeTaken, incorrectAttempts } = data;
     
     try {
@@ -52,4 +52,4 @@ function runAnalysis(data) {
     }
 }
 
-module.exports = { runAnalysis };
+export default { runAnalysis };
