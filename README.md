@@ -1,184 +1,278 @@
-# Algorithia (Data City)
+🌆 Algorithia — Where Algorithms Come Alive
 
-Algorithia is an interactive learning platform that combines Phaser-powered visualizations with React-driven UI. Students explore algorithm-themed districts, solve coding challenges, and watch their code execute line-by-line with real-time visual feedback.
+Algorithia transforms algorithm learning from static diagrams into an interactive world where code becomes a living simulation.
 
-## ✨ Features
+Algorithia is an interactive algorithm learning platform where students write real code and watch it execute step-by-step inside a simulated city of data structures.
 
-- **4 Interactive Districts**: Array, LinkedList Harbor, Stack Tower, Queue Lane
-- **18 Coding Challenges**: From beginner to advanced difficulty
-- **Real-time Visualization**: Watch your code execute step-by-step
-- **AI-Powered Analysis**: Background intelligence system that adapts to your performance
-- **Monaco Editor**: Professional code editing experience
-- **Instant Validation**: Immediate feedback on your solutions
+Instead of memorizing algorithms from textbooks or watching predefined animations, users experience how algorithms behave in real time through a visual environment called Data City.
 
-## 🎮 Tech Stack
+🎯 The Problem
 
-### Frontend
-- React 19 + Vite for UI and routing
-- Phaser 3.90 for game visualization
-- Monaco Editor for code editing
-- Framer Motion for animations
+Learning Data Structures and Algorithms is one of the biggest challenges for students because:
 
-### Backend (AI Engine)
-- Express.js for REST API
-- 8 specialized AI engines for performance analysis
-- In-memory pattern tracking
-- Adaptive difficulty system
+Algorithms are abstract and difficult to visualize
 
-## 📋 Prerequisites
+Most resources rely on static diagrams or pseudocode
 
-- Node.js 20.10+ (LTS)
-- npm 10+
-- Git
+Traditional visualizers only show predefined animations
 
-## 🚀 Quick Start
+Students rarely see how their own code actually executes
 
-### Option 1: Run Both Servers Manually (Recommended)
+This leads to a gap between understanding algorithm logic and writing correct code.
 
-**Terminal 1 - Frontend:**
-```bash
+💡 Our Solution
+
+Algorithia bridges this gap by converting user-written code into a dynamic visual simulation.
+
+The system interprets algorithm logic and maps each operation into actions inside a simulated world.
+
+User Code
+   ↓
+Execution Parser
+   ↓
+Execution Trace
+   ↓
+Simulation Engine
+   ↓
+Real-Time Visualization
+
+Every comparison, swap, loop iteration, or data structure operation becomes a visual event inside the environment.
+
+This allows learners to see their algorithm thinking in action.
+
+🏙️ Welcome to Data City
+
+Data City is the central environment of Algorithia.
+
+Each data structure exists as a district inside the city, representing how it behaves logically.
+
+District	Concept
+Array District	Sequential memory and indexing
+LinkedList Harbor	Node connections and traversal
+Stack Tower	Last-In-First-Out operations
+Queue Lane	First-In-First-Out processing
+
+Each district contains interactive coding challenges that teach algorithmic thinking through visualization.
+
+🎮 Core User Experience
+
+The learning flow in Algorithia is designed as an interactive journey.
+
+Step 1 — Choose a Challenge
+
+Users select a problem from the Question Hub inside a district.
+
+Step 2 — Write Code
+
+Students write their solution inside the Monaco Editor, the same editor used in VS Code.
+
+Step 3 — Run Simulation
+
+The platform parses the code and generates an execution trace.
+
+Step 4 — Watch the Algorithm Execute
+
+The simulation engine visualizes the algorithm line by line inside the environment.
+
+Step 5 — Get Instant Feedback
+
+The system validates the solution and provides AI-powered analysis of performance.
+
+✨ Key Features
+🌆 Interactive Data Structure Districts
+
+Explore algorithms inside themed environments representing different data structures.
+
+🧠 Real-Time Code Execution Visualization
+
+Watch your algorithm execute step-by-step with visual feedback.
+
+💻 Professional Code Editor
+
+Powered by Monaco Editor, providing a real coding experience.
+
+🎮 Game Engine Simulation
+
+Algorithms are visualized using Phaser, enabling dynamic animation and interaction.
+
+🤖 AI-Powered Analysis Engine
+
+Background AI system tracks learning patterns and adapts difficulty accordingly.
+
+⚡ Instant Solution Validation
+
+Users receive immediate feedback on correctness and performance.
+
+🧠 Why Algorithia is Different
+
+Traditional algorithm visualizers show predefined animations.
+
+Algorithia instead interprets actual user code.
+
+Traditional Tools	Algorithia
+Pre-recorded animations	Real code execution
+Static diagrams	Interactive simulation
+Passive learning	Active experimentation
+No personalization	Adaptive AI feedback
+
+Algorithia transforms algorithms from abstract concepts into observable systems.
+
+🏗️ System Architecture
+
+Algorithia consists of three major layers.
+
+Frontend (React + Phaser)
+        ↓
+Execution Engine (Code Parser)
+        ↓
+AI Analysis Engine (Express Backend)
+Execution Flow
+User writes code
+       ↓
+Parser identifies operations
+       ↓
+Execution trace generated
+       ↓
+Simulation engine maps events
+       ↓
+Visualization inside Data City
+
+This architecture allows code logic to directly control the simulation.
+
+🛠️ Tech Stack
+Frontend
+Technology	Purpose
+React 19 + Vite	UI architecture and fast development
+Phaser 3.90	Game-style visualization engine
+Monaco Editor	Code editing environment
+Framer Motion	UI animations and transitions
+Backend (AI Engine)
+Technology	Purpose
+Node.js + Express	REST API and analysis engine
+AI Analysis Engines	Learning behavior analysis
+Adaptive Difficulty	Challenge progression system
+
+The AI system tracks:
+
+solving patterns
+
+attempt frequency
+
+time taken
+
+difficulty adaptation
+
+📁 Project Structure
+Algorithia/
+│
+├── src/                      # Frontend source
+│   ├── components/           # React UI components
+│   ├── engine/               # Code parser & interpreter
+│   ├── game/                 # Phaser simulation scenes
+│   │   └── districts/        # Array, LinkedList, Stack, Queue scenes
+│   ├── pages/                # Application routes
+│   ├── data/                 # Questions and content
+│   └── simulation/           # Execution utilities
+│
+├── server/                   # Backend AI Engine
+│   ├── engines/              # AI analysis engines
+│   ├── services/             # Analysis orchestration
+│   ├── routes/               # API endpoints
+│   └── server.js             # Express server
+│
+├── AI_ENGINE_SETUP.md
+├── AI_ENGINE_SUMMARY.md
+└── COMPLETE_PROJECT_STATUS.md
+🚀 Getting Started
+Prerequisites
+
+Node.js 20+
+
+npm 10+
+
+Git
+
+Run Frontend
 npm install
 npm run dev
-```
-Frontend runs on: `http://localhost:5173`
 
-**Terminal 2 - Backend (AI Engine):**
-```bash
+Frontend runs on:
+
+http://localhost:5173
+Run Backend AI Engine
 cd server
 npm install
 npm start
-```
-Backend runs on: `http://localhost:5000`
 
-### Option 2: Automatic Start
+Backend runs on:
 
-**Mac/Linux:**
-```bash
-chmod +x start-all.sh
-./start-all.sh
-```
-
-**Windows:**
-```bash
-start-all.bat
-```
-
-## 📁 Project Structure
-
-```
-Algorithia/
-├── src/                      # Frontend source
-│   ├── components/           # React components
-│   ├── engine/              # Code parser & interpreter (DO NOT MODIFY)
-│   ├── game/                # Phaser visualization scenes
-│   │   └── districts/       # LinkedList, Stack, Queue scenes
-│   ├── pages/               # Route pages
-│   ├── data/                # Questions and content
-│   └── simulation/          # Execution utilities
-│
-├── server/                   # Backend AI Engine
-│   ├── engines/             # 8 AI analysis engines
-│   ├── services/            # Analysis orchestration
-│   ├── routes/              # API endpoints
-│   └── server.js            # Express server
-│
-├── AI_ENGINE_SETUP.md       # Complete AI setup guide
-├── AI_ENGINE_SUMMARY.md     # Quick reference
-└── COMPLETE_PROJECT_STATUS.md  # Full documentation
-```
-
-## 🎯 How It Works
-
-### User Flow
-1. Select a question from the Question Hub
-2. Write code in the Monaco editor
-3. Click "Run Simulation"
-4. Watch line-by-line execution with visualization
-5. Get instant validation feedback
-6. AI analyzes performance in background (silent)
-
-### AI Analysis (Background)
-- Tracks behavior patterns
-- Detects vulnerabilities
-- Recommends next challenges
-- Adjusts difficulty dynamically
-- Logs to console only (no UI changes)
-
-## 🧪 Testing
-
-### Test Frontend
-```bash
+http://localhost:5000
+🧪 Testing
+Frontend
 npm run dev
-# Visit http://localhost:5173
-```
 
-### Test Backend
-```bash
+Open:
+
+http://localhost:5173
+Backend
 cd server
 npm test
-# Or manually:
+
+Or manually test:
+
 curl http://localhost:5000/api/analyze/health
-```
+📊 Available Districts
+Array District
 
-### Test Integration
-1. Solve any question
-2. Open browser console (F12)
-3. Look for `[AI Analysis]` logs
+Array Traversal
 
-## 📊 Available Districts
+Find Maximum
 
-### 1. Array District
-- Array Traversal
-- Find Maximum
-- Bubble Sort
-- Binary Search
+Bubble Sort
 
-### 2. LinkedList Harbor 🔗
-- Traverse Linked List
-- Find Maximum
-- Count Nodes
-- Search
-- Doubly Linked List
-- Circular Linked List
+Binary Search
 
-### 3. Stack Tower 📚
-- Push and Pop Operations
-- Peek Operation
-- Reverse Array
-- isEmpty Check
+LinkedList Harbor
 
-### 4. Queue Lane 🎫
-- Enqueue and Dequeue
-- Peek Front
-- Front and Rear Access
-- isEmpty Check
+Traverse Linked List
 
-## 🔧 Build & Deploy
+Find Maximum
 
-### Development
-```bash
-npm run dev          # Frontend dev server
-cd server && npm run dev  # Backend with auto-reload
-```
+Count Nodes
 
-### Production Build
-```bash
-npm run build        # Build frontend
-npm run preview      # Preview production build
-```
+Search Node
 
-### Linting
-```bash
-npm run lint         # Check code quality
-```
+Doubly Linked List
 
-## 🤖 AI Engine API
+Circular Linked List
 
-### POST /api/analyze
-Analyze user performance after simulation.
+Stack Tower
 
-**Request:**
-```json
+Push and Pop Operations
+
+Peek Operation
+
+Reverse Array
+
+isEmpty Check
+
+Queue Lane
+
+Enqueue and Dequeue
+
+Peek Front
+
+Front and Rear Access
+
+isEmpty Check
+
+🤖 AI Analysis API
+POST /api/analyze
+
+Analyze user performance after solving a problem.
+
+Example request:
+
 {
   "userId": "user-123",
   "questionId": "array-traversal",
@@ -187,10 +281,9 @@ Analyze user performance after simulation.
   "incorrectAttempts": 1,
   "success": true
 }
-```
 
-**Response:**
-```json
+Example response:
+
 {
   "success": true,
   "data": {
@@ -198,71 +291,48 @@ Analyze user performance after simulation.
     "exploitability": { "score": 35, "riskLevel": "low-risk" },
     "strategy": { "strategyType": "support" },
     "nextQuestion": { "id": "bubble-sort" },
-    "escalation": { "escalationStage": 2 }
+    "escalation": { "stage": 2 }
   }
 }
-```
+🎓 Educational Impact
 
-### GET /api/analyze/health
-Health check endpoint.
+Algorithia helps students:
 
-## 📚 Documentation
+✔ Visualize algorithm execution
+✔ Understand data structure behavior
+✔ Debug step-by-step logic
+✔ Improve algorithm intuition
+✔ Learn through interaction rather than memorization
 
-- **AI_ENGINE_SETUP.md** - Complete AI engine setup guide
-- **AI_ENGINE_SUMMARY.md** - Quick reference for AI system
-- **COMPLETE_PROJECT_STATUS.md** - Full project documentation
-- **server/README.md** - Backend-specific documentation
+🔮 Future Enhancements
 
-## 🐛 Troubleshooting
+Planned expansions include:
 
-### Frontend Issues
-- Clear browser cache
-- Delete `node_modules` and run `npm install`
-- Check console for errors (F12)
+Tree and Graph visualization districts
 
-### Backend Issues
-- Ensure port 5000 is available
-- Check `server/node_modules` exists
-- View server logs for errors
+User progress tracking
 
-### Integration Issues
-- Verify both servers are running
-- Check CORS settings in `server/server.js`
-- Test health endpoint: `curl http://localhost:5000/api/analyze/health`
+Performance analytics dashboard
 
-## 🎓 Educational Value
+Multiplayer collaborative learning
 
-Students learn:
-- Data structure operations (Array, LinkedList, Stack, Queue)
-- Algorithm visualization
-- Step-by-step debugging
-- Code-to-visual mapping
-- Problem-solving patterns
+AI-generated hints
 
-## 🔮 Future Enhancements
+Persistent learning profiles
 
-- Tree and Graph visualizations
-- User accounts and progress tracking
-- Real-time hints in UI
-- Performance analytics dashboard
-- Persistent storage for AI analysis
-- Advanced ML models
+🤝 Contributors
 
-## 🤝 Contributing
+Drishti
 
-Issues and PRs are welcome! Please include:
-- Clear description of changes
-- Screenshots/videos for UI changes
-- Test results
+Vaibhavi Jha
 
-## 📄 License
+Esha
 
-MIT
+Aditya Garg
 
-## 🙏 Acknowledgments
 
-Built with React, Phaser, Express, and lots of ☕
+🌟 Final Thought
 
----
+Algorithms shouldn’t just be studied — they should be experienced.
 
-**Ready to learn? Start exploring Data City!** 🏙️
+Welcome to Data City. 🏙️
