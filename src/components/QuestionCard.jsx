@@ -37,7 +37,7 @@ export function QuestionCard({ question }) {
                             fontWeight: "600",
                         }}
                     >
-                        L{question.level} • {levelLabels[question.level]}
+                        L{question.level}  -  {levelLabels[question.level]}
                     </span>
                 )}
 

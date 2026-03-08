@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import GateTransition from "./GateTransition";
+import { auth } from "../firebase";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 
 // ─── Parchment + Castle Background Canvas ─────────────────────────────────────
 function BackgroundCanvas() {
@@ -231,6 +239,7 @@ export default function AuthPage({ onEnterCity }) {
   const [name,     setName]     = useState("");
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
+  const [error,    setError]    = useState("");
   const [loading,  setLoading]  = useState(false);
   const [gateOpen, setGateOpen] = useState(false);
   const [mounted,  setMounted]  = useState(false);
@@ -248,24 +257,94 @@ export default function AuthPage({ onEnterCity }) {
   },[]);
 
   const switchMode = (m) => {
-    setMode(m); setName(""); setEmail(""); setPassword(""); setShake(false);
+    setMode(m); setName(""); setEmail(""); setPassword(""); setShake(false); setError("");
   };
 
-  const handleSubmit = () => {
+  const getFriendlyError = (code) => {
+    switch (code) {
+      case "auth/invalid-email":
+        return "Enter a valid email address.";
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+      case "auth/invalid-credential":
+        return "Invalid email or password.";
+      case "auth/email-already-in-use":
+        return "This email is already registered.";
+      case "auth/weak-password":
+        return "Password must be at least 6 characters.";
+      case "auth/too-many-requests":
+        return "Too many attempts. Try again shortly.";
+      default:
+        return "Authentication failed. Please try again.";
+    }
+  };
+  const handleSubmit = async () => {
     // Validation
     if(!email||!password||(mode==="signup"&&(!name))){
+      setError("Please fill in all required fields.");
       setShake(true); setTimeout(()=>setShake(false),600); return;
     }
+    if (!auth) {
+      setError("Firebase is not configured. Add VITE_FIREBASE_* values in your .env file.");
+      setShake(true); setTimeout(()=>setShake(false),600); return;
+    }
+    setError("");
     setLoading(true);
-    const authTimer = setTimeout(()=>{
+    try {
+      if (mode === "signup") {
+        const credential = await createUserWithEmailAndPassword(auth, email.trim(), password);
+        if (name.trim()) {
+          await updateProfile(credential.user, { displayName: name.trim() });
+        }
+      } else {
+        await signInWithEmailAndPassword(auth, email.trim(), password);
+      }
       setLoading(false);
       setSuccess(true);
       const gateTimer = setTimeout(()=>{
         setGateOpen(true);
       },600);
       timersRef.current.push(gateTimer);
-    },1400);
-    timersRef.current.push(authTimer);
+    } catch (err) {
+      setLoading(false);
+      setSuccess(false);
+      setError(getFriendlyError(err?.code));
+      setShake(true);
+      const shakeTimer = setTimeout(() => setShake(false), 600);
+      timersRef.current.push(shakeTimer);
+    }
+  };
+
+  const handleOAuth = async (providerName) => {
+    if (!auth) {
+      setError("Firebase is not configured. Add VITE_FIREBASE_* values in your .env file.");
+      setShake(true); setTimeout(()=>setShake(false),600); return;
+    }
+
+    if (providerName !== "Google") {
+      setError(`${providerName} sign-in is not configured yet.`);
+      setShake(true); setTimeout(()=>setShake(false),600); return;
+    }
+
+    setError("");
+    setLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      setLoading(false);
+      setSuccess(true);
+      const gateTimer = setTimeout(()=>{
+        setGateOpen(true);
+      },600);
+      timersRef.current.push(gateTimer);
+    } catch (err) {
+      setLoading(false);
+      setSuccess(false);
+      setError(getFriendlyError(err?.code));
+      setShake(true);
+      const shakeTimer = setTimeout(() => setShake(false), 600);
+      timersRef.current.push(shakeTimer);
+    }
   };
 
   return (
@@ -434,9 +513,7 @@ export default function AuthPage({ onEnterCity }) {
                   }}>{m==="login"?"Enter Gates":"Join Kingdom"}</button>
                 ))}
               </div>
-            </div>
-
-            {/* Form fields */}
+            </div>            {/* Form fields */}
             <div style={{animation:"modeSlide 0.3s ease",key:mode}}>
               {mode==="signup"&&(
                 <RuneInput label="Your Name" type="text" value={name} onChange={setName}
@@ -447,6 +524,19 @@ export default function AuthPage({ onEnterCity }) {
               <RuneInput label="Secret Rune" type="password" value={password} onChange={setPassword}
                 icon="🔐" placeholder="••••••••"/>
             </div>
+
+            {error && (
+              <div style={{
+                marginTop:2,
+                marginBottom:14,
+                color:"rgba(255,128,128,0.92)",
+                fontFamily:"'Cinzel',serif",
+                fontSize:"0.62rem",
+                letterSpacing:"0.08em",
+              }}>
+                {error}
+              </div>
+            )}
 
             {/* Forgot — only on login */}
             {mode==="login"&&(
@@ -513,11 +603,11 @@ export default function AuthPage({ onEnterCity }) {
             {/* OAuth — styled as faction banners */}
             <div style={{display:"flex",gap:10}}>
               {[{icon:"G",label:"Google"},{ icon:"⚡",label:"GitHub"}].map(({icon,label})=>(
-                <button key={label} style={{
+                <button key={label} onClick={()=>handleOAuth(label)} disabled={loading||success} style={{
                   flex:1,padding:"10px 0",
                   background:"rgba(240,192,64,0.06)",
                   border:"1px solid rgba(240,192,64,0.18)",
-                  borderRadius:4,cursor:"pointer",
+                  borderRadius:4,cursor:loading||success?"default":"pointer",
                   display:"flex",alignItems:"center",justifyContent:"center",gap:7,
                   fontFamily:"'Cinzel',serif",fontSize:"0.6rem",
                   color:"rgba(200,170,90,0.6)",letterSpacing:"0.1em",
@@ -573,3 +663,8 @@ export default function AuthPage({ onEnterCity }) {
     </div>
   );
 }
+
+
+
+
+
